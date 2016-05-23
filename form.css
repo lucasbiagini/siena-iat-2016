@@ -1,0 +1,56 @@
+ul.formlist{
+	padding: 0;
+}
+ul.formlist li { 
+     list-style-type: none;
+}
+body {
+	padding: 0;
+	margin: 0px;
+	color: white;
+	background-color: #000;
+	font-size: 17px;
+}
+form {
+margin: 20px 0;
+}
+#page {
+	overflow: auto;
+	margin: 2em;
+	padding: 10px;
+	text-align: justify;
+}
+#footer {
+clear:both;
+}
+button {
+	color: black;
+	text-align: center;
+}
+h2{
+	text-align: center;
+}
+table {
+	margin-bottom: 15px;
+	margin-top: 15px;
+	border="2px";
+
+}
+table td, table th{
+	padding: 10px;
+}
+table th {
+	background-color: #111;
+}
+table td {
+	background-color: #333;
+}
+label {
+    float: left;
+    padding: 0 1em;
+    text-align: center;
+}
+button, input, optgroup, select, textarea{
+	color: black;
+}
+

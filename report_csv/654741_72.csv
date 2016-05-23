@@ -1,0 +1,33 @@
+"Seq Number","Trial Number","Response Time",Item,Category,Error,Block
+1,1,0.44900012016296,Protein,Biology,0,1
+2,2,0.052000045776367,Species,Biology,1,1
+3,2,0.13499999046326,Species,Biology,0,1
+4,3,0.042999982833862,Technology,"Computer Science",0,1
+5,4,0.16799998283386,Mary,Female,0,2
+6,5,0.019999980926514,David,Male,0,2
+7,6,0.14100003242493,William,Male,1,2
+8,6,0.057999849319458,William,Male,0,2
+9,7,0.13499999046326,Elizabeth,Female,1,3
+10,7,0.019000053405762,Elizabeth,Female,0,3
+11,8,0.14199995994568,Species,Biology,0,3
+12,9,0.052999973297119,Jennifer,Female,1,3
+13,9,0.11500000953674,Jennifer,Female,0,3
+14,10,0.12400007247925,David,Male,1,4
+15,10,0.032999992370605,David,Male,0,4
+16,11,0.13899993896484,Protein,Biology,0,4
+17,12,0.049000024795532,Jennifer,Female,1,4
+18,12,0.12400007247925,Jennifer,Female,0,4
+19,13,0.73300004005432,Technology,"Computer Science",0,5
+20,14,0.046000003814697,Plants,Biology,0,5
+21,15,0.27099990844727,Nature,Biology,1,5
+22,15,0.1029999256134,Nature,Biology,0,5
+23,16,0.53099989891052,Michael,Male,1,6
+24,16,0.39500021934509,Michael,Male,0,6
+25,17,0.39399981498718,Photosynthesis,Biology,1,6
+26,17,0.38900017738342,Photosynthesis,Biology,0,6
+27,18,0.52699995040894,Linda,Female,1,6
+28,18,0.54099988937378,Linda,Female,0,6
+29,19,0.375,Patricia,Female,1,7
+30,19,0.44199991226196,Patricia,Female,0,7
+31,20,1.3159999847412,Nature,Biology,0,7
+32,21,0.99000000953674,Linda,Female,0,7

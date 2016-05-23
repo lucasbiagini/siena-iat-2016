@@ -1,0 +1,212 @@
+"Seq Number","Trial Number","Response Time",Item,Category,Error,Block
+1,1,2.2170000076294,Database,"Computer Science",0,1
+2,2,2.0429999828339,Programming,"Computer Science",0,1
+3,3,2.470999956131,Technology,"Computer Science",0,1
+4,4,1.1660001277924,Apps,"Computer Science",0,1
+5,5,2.5889999866486,Algorithm,"Computer Science",0,1
+6,6,1.3799998760223,Life,Biology,0,1
+7,7,1.1480000019073,Internet,"Computer Science",0,1
+8,8,1.1519999504089,Software,"Computer Science",0,1
+9,9,1.1100001335144,Computer,"Computer Science",0,1
+10,10,1.5319998264313,Habitat,Biology,0,1
+11,11,1.4140000343323,Species,Biology,0,1
+12,12,1.2400000095367,Protein,Biology,1,1
+13,12,4.1360001564026,Protein,Biology,0,1
+14,13,2.2469999790192,Nature,Biology,0,1
+15,14,1.2330000400543,Photosynthesis,Biology,0,1
+16,15,1.0609998703003,Plants,Biology,0,1
+17,16,1.4260001182556,Organs,Biology,0,1
+18,17,1.0839998722076,Programming,"Computer Science",0,1
+19,18,1.0789999961853,Habitat,Biology,0,1
+20,19,0.93300008773804,Photosynthesis,Biology,0,1
+21,20,1.1449999809265,Software,"Computer Science",0,1
+22,21,2.2939999103546,Michael,Male,0,2
+23,22,1.1119999885559,Patricia,Female,0,2
+24,23,0.91600012779236,Richard,Male,0,2
+25,24,0.88499999046326,Mary,Female,0,2
+26,25,1.0279998779297,David,Male,0,2
+27,26,0.98100018501282,James,Male,0,2
+28,27,0.90899991989136,Barbara,Female,0,2
+29,28,1.0390000343323,Elizabeth,Female,0,2
+30,29,1.0009999275208,William,Male,0,2
+31,30,0.99600005149841,John,Male,0,2
+32,31,0.93899989128113,Margaret,Female,0,2
+33,32,0.92799997329712,Susan,Female,0,2
+34,33,0.98300004005432,Linda,Female,0,2
+35,34,1.1710000038147,Joseph,Male,0,2
+36,35,1.1549999713898,Robert,Male,1,2
+37,35,0.84700012207031,Robert,Male,0,2
+38,36,1.289999961853,Jennifer,Female,0,2
+39,37,1.1549999713898,Linda,Female,0,2
+40,38,1.2330000400543,John,Male,0,2
+41,39,1.3120000362396,Richard,Male,0,2
+42,40,0.77900004386902,James,Male,0,2
+43,41,1.2149999141693,Patricia,Female,0,3
+44,42,1.0750000476837,Habitat,Biology,0,3
+45,43,1.4520001411438,John,Male,1,3
+46,43,0.85199999809265,John,Male,0,3
+47,44,4.180999994278,Protein,Biology,0,3
+48,45,1.4579999446869,Margaret,Female,0,3
+49,46,1.9909999370575,Internet,"Computer Science",0,3
+50,47,1.0469999313354,Joseph,Male,0,3
+51,48,1.5300002098083,Database,"Computer Science",0,3
+52,49,1.1829998493195,Elizabeth,Female,0,3
+53,50,1.228000164032,Life,Biology,0,3
+54,51,1.2229998111725,Robert,Male,0,3
+55,52,1.199000120163,Computer,"Computer Science",0,3
+56,53,1.1689999103546,David,Male,0,3
+57,54,1.5810000896454,Algorithm,"Computer Science",1,3
+58,54,0.83800005912781,Algorithm,"Computer Science",0,3
+59,55,1.6959998607635,Susan,Female,0,3
+60,56,1.8450000286102,Software,"Computer Science",0,3
+61,57,1.2090001106262,William,Male,0,3
+62,58,1.6749999523163,Technology,"Computer Science",0,3
+63,59,1.6740000247955,Michael,Male,0,3
+64,60,1.231999874115,Photosynthesis,Biology,0,3
+65,61,1.5810000896454,Barbara,Female,0,4
+66,62,1.3179998397827,Software,"Computer Science",0,4
+67,63,1.3400001525879,James,Male,1,4
+68,63,0.47099995613098,James,Male,0,4
+69,64,1.0810000896454,Apps,"Computer Science",0,4
+70,65,1.1799998283386,Susan,Female,1,4
+71,65,0.83899998664856,Susan,Female,0,4
+72,66,1.0710000991821,Life,Biology,0,4
+73,67,1.4660000801086,Margaret,Female,0,4
+74,68,1.0519998073578,Photosynthesis,Biology,0,4
+75,69,1.0530002117157,Elizabeth,Female,0,4
+76,70,1.1379997730255,Internet,"Computer Science",0,4
+77,71,1.0730001926422,Joseph,Male,0,4
+78,72,1.5969998836517,Computer,"Computer Science",0,4
+79,73,1.8110001087189,David,Male,0,4
+80,74,1.2059998512268,Plants,Biology,0,4
+81,75,1.1530001163483,Linda,Female,0,4
+82,76,1.1849999427795,Organs,Biology,0,4
+83,77,1.0429999828339,Jennifer,Female,0,4
+84,78,1.0620000362396,Protein,Biology,0,4
+85,79,1.2709999084473,Mary,Female,0,4
+86,80,1.4769999980927,Species,Biology,0,4
+87,81,1.3389999866486,Richard,Male,0,4
+88,82,1.1130001544952,Database,"Computer Science",0,4
+89,83,1.0469999313354,Robert,Male,0,4
+90,84,1.739000082016,Nature,Biology,0,4
+91,85,0.98300004005432,Michael,Male,0,4
+92,86,1.0909998416901,Technology,"Computer Science",0,4
+93,87,0.97399997711182,Patricia,Female,0,4
+94,88,0.9760000705719,Algorithm,"Computer Science",1,4
+95,88,0.97000002861023,Algorithm,"Computer Science",0,4
+96,89,1.2130000591278,William,Male,0,4
+97,90,1.8199999332428,Habitat,Biology,0,4
+98,91,2.2829999923706,John,Male,0,4
+99,92,1.1889998912811,Programming,"Computer Science",0,4
+100,93,1.313000202179,Richard,Male,0,4
+101,94,1.9629998207092,Organs,Biology,0,4
+102,95,1.6240000724792,David,Male,0,4
+103,96,1.0610001087189,Life,Biology,0,4
+104,97,1.1449999809265,Joseph,Male,0,4
+105,98,1.0999999046326,Internet,"Computer Science",0,4
+106,99,1.5120000839233,Elizabeth,Female,0,4
+107,100,0.94899988174438,Technology,"Computer Science",0,4
+108,101,1.7099997997284,Internet,"Computer Science",0,5
+109,102,1.1150000095367,Database,"Computer Science",0,5
+110,103,1.0210001468658,Technology,"Computer Science",0,5
+111,104,1.1589999198914,Algorithm,"Computer Science",0,5
+112,105,1.7269999980927,Programming,"Computer Science",0,5
+113,106,1.3770000934601,Computer,"Computer Science",0,5
+114,107,1.1640000343323,Apps,"Computer Science",0,5
+115,108,1.1219999790192,Software,"Computer Science",0,5
+116,109,1.0639998912811,Habitat,Biology,0,5
+117,110,2.0030000209808,Photosynthesis,Biology,0,5
+118,111,1.279000043869,Plants,Biology,0,5
+119,112,1.8220000267029,Life,Biology,0,5
+120,113,2.3599998950958,Nature,Biology,0,5
+121,114,2.114000082016,Organs,Biology,0,5
+122,115,0.8439998626709,Protein,Biology,0,5
+123,116,1.1080000400543,Species,Biology,0,5
+124,117,0.90100002288818,Habitat,Biology,0,5
+125,118,1.0220000743866,Programming,"Computer Science",0,5
+126,119,1.4679999351501,Protein,Biology,0,5
+127,120,1.1700000762939,Plants,Biology,0,5
+128,121,1.8999998569489,Software,"Computer Science",0,5
+129,122,4.4580001831055,Algorithm,"Computer Science",0,5
+130,123,1.2459998130798,Organs,Biology,1,5
+131,123,1.0140001773834,Organs,Biology,0,5
+132,124,1.7300000190735,Computer,"Computer Science",0,5
+133,125,1.021999835968,Database,"Computer Science",0,5
+134,126,0.87100005149841,Internet,"Computer Science",0,5
+135,127,1.5590000152588,Nature,Biology,0,5
+136,128,0.92199993133545,Technology,"Computer Science",0,5
+137,129,1.5670001506805,Apps,"Computer Science",0,5
+138,130,1.0230000019073,Species,Biology,0,5
+139,131,1.1419999599457,Life,Biology,0,5
+140,132,1.0060000419617,Photosynthesis,Biology,0,5
+141,133,1.3719999790192,Programming,"Computer Science",0,5
+142,134,2.1410000324249,Protein,Biology,0,5
+143,135,1.0099999904633,Plants,Biology,0,5
+144,136,0.96199989318848,Database,"Computer Science",0,5
+145,137,1.2249999046326,Photosynthesis,Biology,1,5
+146,137,0.70700001716614,Photosynthesis,Biology,0,5
+147,138,3.4560000896454,Habitat,Biology,0,5
+148,139,1.305999994278,Internet,"Computer Science",0,5
+149,140,3.0299999713898,Technology,"Computer Science",0,5
+150,141,1.3199999332428,Mary,Female,0,6
+151,142,1.5139999389648,Nature,Biology,0,6
+152,143,0.87600016593933,Barbara,Female,0,6
+153,144,2.1840000152588,Algorithm,"Computer Science",0,6
+154,145,0.90799999237061,David,Male,0,6
+155,146,2.6409997940063,Habitat,Biology,0,6
+156,147,1.0220000743866,Margaret,Female,0,6
+157,148,1.2239999771118,Organs,Biology,0,6
+158,149,0.84200000762939,Elizabeth,Female,0,6
+159,150,1.0099999904633,Species,Biology,0,6
+160,151,1.0250000953674,James,Male,0,6
+161,152,1.0759999752045,Apps,"Computer Science",0,6
+162,153,1.0680000782013,John,Male,0,6
+163,154,0.9210000038147,Software,"Computer Science",0,6
+164,155,1.1519999504089,Robert,Male,0,6
+165,156,0.97099995613098,Database,"Computer Science",0,6
+166,157,0.94600009918213,Susan,Female,0,6
+167,158,0.94099998474121,Computer,"Computer Science",0,6
+168,159,1.5,Jennifer,Female,0,6
+169,160,1.1729998588562,Life,Biology,0,6
+170,161,1.4960000514984,William,Male,0,7
+171,162,1.1480000019073,Algorithm,"Computer Science",0,7
+172,163,0.89100003242493,James,Male,0,7
+173,164,0.96499991416931,Internet,"Computer Science",0,7
+174,165,0.97500014305115,Robert,Male,0,7
+175,166,0.93899989128113,Technology,"Computer Science",0,7
+176,167,1.085000038147,Susan,Female,0,7
+177,168,1.4059998989105,Nature,Biology,0,7
+178,169,1.0500001907349,John,Male,0,7
+179,170,1.1799998283386,Computer,"Computer Science",0,7
+180,171,0.89499998092651,Elizabeth,Female,0,7
+181,172,0.92600011825562,Software,"Computer Science",0,7
+182,173,1.3650000095367,Jennifer,Female,0,7
+183,174,0.8840000629425,Database,"Computer Science",0,7
+184,175,1.3980000019073,Michael,Male,0,7
+185,176,1.180999994278,Programming,"Computer Science",0,7
+186,177,1.0469999313354,David,Male,0,7
+187,178,0.89400005340576,Apps,"Computer Science",0,7
+188,179,0.86899995803833,Joseph,Male,0,7
+189,180,1.0780000686646,Habitat,Biology,0,7
+190,181,1.1599998474121,Margaret,Female,0,7
+191,182,1.8300001621246,Plants,Biology,0,7
+192,183,0.93599987030029,Richard,Male,0,7
+193,184,3.1459999084473,Photosynthesis,Biology,1,7
+194,184,0.81500005722046,Photosynthesis,Biology,0,7
+195,185,1.1840000152588,Linda,Female,0,7
+196,186,1.3180000782013,Species,Biology,1,7
+197,186,0.74699997901917,Species,Biology,0,7
+198,187,0.8769998550415,Barbara,Female,0,7
+199,188,1.1280000209808,Protein,Biology,0,7
+200,189,0.81599998474121,Mary,Female,0,7
+201,190,0.97900009155273,Life,Biology,0,7
+202,191,0.91600012779236,Patricia,Female,0,7
+203,192,1.0789999961853,Organs,Biology,0,7
+204,193,0.91899991035461,Linda,Female,0,7
+205,194,1.3069999217987,Plants,Biology,0,7
+206,195,1.1730000972748,John,Male,0,7
+207,196,1.9189999103546,Nature,Biology,0,7
+208,197,0.91900014877319,Elizabeth,Female,0,7
+209,198,1.2139999866486,Software,"Computer Science",0,7
+210,199,1.0099999904633,Richard,Male,0,7
+211,200,0.8659999370575,Database,"Computer Science",0,7

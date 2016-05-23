@@ -1,0 +1,31 @@
+"Seq Number","Trial Number","Response Time",Item,Category,Error,Block
+1,1,0.16400003433228,Plants,Biology,1,1
+2,1,0.071999788284302,Plants,Biology,0,1
+3,2,0.1340000629425,Database,"Computer Science",0,1
+4,3,0.13499999046326,Software,"Computer Science",1,1
+5,3,0.069000005722046,Software,"Computer Science",0,1
+6,4,0.16200017929077,Susan,Female,0,2
+7,5,0.019999980926514,Mary,Female,1,2
+8,5,0.15100002288818,Mary,Female,0,2
+9,6,0.039999961853027,David,Male,0,2
+10,7,2.1519999504089,Richard,Male,0,3
+11,8,1.5250000953674,Life,Biology,0,3
+12,9,1.1210000514984,Joseph,Male,0,3
+13,10,1.1019999980927,Linda,Female,1,4
+14,10,0.68700003623962,Linda,Female,0,4
+15,11,0.93499994277954,Programming,"Computer Science",0,4
+16,12,0.86299991607666,Susan,Female,0,4
+17,13,0.38199996948242,Apps,"Computer Science",1,5
+18,13,0.029999971389771,Apps,"Computer Science",0,5
+19,14,0.17000007629395,Computer,"Computer Science",1,5
+20,14,0.019000053405762,Computer,"Computer Science",0,5
+21,15,0.4210000038147,Programming,"Computer Science",1,5
+22,15,0.016000032424927,Programming,"Computer Science",0,5
+23,16,1.1139998435974,John,Male,0,6
+24,17,1.228000164032,Protein,Biology,0,6
+25,18,0.88199996948242,Jennifer,Female,1,6
+26,18,0.36500000953674,Jennifer,Female,0,6
+27,19,0.80699992179871,Elizabeth,Female,1,7
+28,19,0.47399997711182,Elizabeth,Female,0,7
+29,20,0.78500008583069,Organs,Biology,0,7
+30,21,0.76399993896484,Susan,Female,0,7
