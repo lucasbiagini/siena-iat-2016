@@ -1,3 +1,7 @@
+var eKey = 69
+var iKey = 73
+var spaceKey = 32
+
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -17,110 +21,80 @@ function shuffle(array) {
   return array;
 }
 
-function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
-	iatType = Math.floor(Math.random() * 4) + 1;
-	switch (iatType) {
-		case 1:
-			name1 = title1;
-			name2 = title2;
-			name3 = title3;
-			name4 = title4;
-			arr1 = array1;
-			arr2 = array2;
-			arr3 = array3;
-			arr4 = array4;
-			break;
-		case 2:
-			name1 = title1;
-			name2 = title2;
-			name3 = title4;
-			name4 = title3;
-			arr1 = array1;
-			arr2 = array2;
-			arr3 = array4;
-			arr4 = array3;
-			break;
-		case 3:
-			name1 = title2;
-			name2 = title1;
-			name3 = title3;
-			name4 = title4;
-			arr1 = array2;
-			arr2 = array1;
-			arr3 = array3;
-			arr4 = array4;
-			break;
-		case 4:
-			name1 = title2;
-			name2 = title1;
-			name3 = title4;
-			name4 = title3;
-			arr1 = array2;
-			arr2 = array1;
-			arr3 = array4;
-			arr4 = array3;
-			break;
-	}
-	categories_order = name1 + ", " + name2 + ", " + name3 + ", " + name4;
-	
+function makeSpan(colorNumber, value) {
+  return "<span class='color"+ colorNumber +"'>" + value + "</span>";
+}
 
+function sendData(jsonMatrix, categories_order) {
+  $.post( "ajax/iat.php", {"matrix" : jsonMatrix, "type": 1, "categories_order": categories_order}, function(result) {
+      $("#results").html(result);
+  });
+}
+
+
+function iat (concept1, concept2, attribute1, attribute2, arrConcept1, arrConcept2, arrAttribute1, arrAttribute2) {
+
+	categories_order = concept1 + ", " + concept2 + ", " + attribute1 + ", " + attribute2;
 	matrixReturn = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]];
-
 	i = 0;
-	numTrials = 20; 																		//Current/starting trials
-	curBlock = 1; 																		//Current block on; always start with 1
-	curTrial = 1; 																		//Current trial on; always start with 1
+  //Current/starting trials
+	numTrials = 20;
+  //Current block on; always start with 1
+	curBlock = 1;
+  //Current trial on; always start with 1
+	curTrial = 1;
 	c = "?"
 	start = 0;
 	diff = 0;
 	post = 0;
 
-	nameLeft = "<span class='color1'>" + name1 + "</span>";
-	nameRight = "<span class='color1'>" + name2 + "</span>";
+	nameLeft = makeSpan(1, concept1);
+	nameRight = makeSpan(1, concept2);
+
 	$("#directions").html(numTrials + " words will be shown. Press 'e' if the word is " + nameLeft.toLowerCase()  + ", 'i' if the word is " + nameRight.toLowerCase() + ".");
 	$("#left").html(nameLeft);
 	$("#right").html(nameRight);
 	$("#start").show();
-
 	$("#error").hide();
+
 	$(document).keyup(function(e) {
 		$("#error").hide();
 		switch (curBlock) {
 			case 1:
-				arrLeft = arr1;
-				arrRight = arr2;
+				arrLeft = arrConcept1;
+				arrRight = arrConcept2;
 				break;
 			case 2:
-				arrLeft = arr3;
-				arrRight = arr4;					 
+				arrLeft = arrAttribute1;
+				arrRight = arrAttribute2;					 
 				break;
 			case 3:
-				arrLeft1 = arr1;
-				arrLeft2 = arr3;
-				arrRight1 = arr2;
-				arrRight2 = arr4;
+				arrLeft1 = arrConcept1;
+				arrLeft2 = arrAttribute1;
+				arrRight1 = arrConcept2;
+				arrRight2 = arrAttribute2;
 				break;
 			case 4:
-				arrLeft1 = arr1;
-				arrLeft2 = arr3;
-				arrRight1 = arr2;
-				arrRight2 = arr4;
+				arrLeft1 = arrConcept1;
+				arrLeft2 = arrAttribute1;
+				arrRight1 = arrConcept2;
+				arrRight2 = arrAttribute2;
 				break;
 			case 5:
-				arrLeft = arr2;
-				arrRight = arr1;
+				arrLeft = arrConcept2;
+				arrRight = arrConcept1;
 				break;
 			case 6:
-				arrLeft1 = arr2;
-				arrLeft2 = arr3;
-				arrRight1 = arr1;
-				arrRight2 = arr4;
+				arrLeft1 = arrConcept2;
+				arrLeft2 = arrAttribute1;
+				arrRight1 = arrConcept1;
+				arrRight2 = arrAttribute2;
 				break;
 			case 7:
-				arrLeft1 = arr2;
-				arrLeft2 = arr3;
-				arrRight1 = arr1;
-				arrRight2 = arr4;
+				arrLeft1 = arrConcept2;
+				arrLeft2 = arrAttribute1;
+				arrRight1 = arrConcept1;
+				arrRight2 = arrAttribute2;
 				break;
 			default:
 				c = "DONE";
@@ -128,7 +102,7 @@ function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
 		}
 				
 
-		if (e.which == 32 && c == "?") {
+		if (e.which == spaceKey && c == "?") {
 			$("#start").hide();
 			date = new Date();
 			seconds = date.getTime()/1000;
@@ -163,34 +137,34 @@ function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
 				item = arrRightStack.pop();
 			}																			//Ends else if to choose positive word
 					
-			if (arr1.indexOf(item) >= 0) {
+			if (arrConcept1.indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color1");
-				matrixReturn[curBlock-1][3][i] = name1;
-			} else if(arr2.indexOf(item) >= 0) {
+				matrixReturn[curBlock-1][3][i] = concept1;
+			} else if(arrConcept2.indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color1");
-				matrixReturn[curBlock-1][3][i] = name2;
-			} else if(arr3.indexOf(item) >= 0) {
+				matrixReturn[curBlock-1][3][i] = concept2;
+			} else if(arrAttribute1.indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color2");
-				matrixReturn[curBlock-1][3][i] = name3;
-			} else if(arr4.indexOf(item) >= 0) {
+				matrixReturn[curBlock-1][3][i] = attribute1;
+			} else if(arrAttribute2.indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color2");
-				matrixReturn[curBlock-1][3][i] = name4;
+				matrixReturn[curBlock-1][3][i] = attribute2;
 			}
 
 			$("#console").html(item);
 
 			matrixReturn[curBlock-1][0][i] = item;
-		} else if ((e.which == 69 || e.which == 73) && c != "?" && c != "DONE") {
+		} else if ((e.which == eKey || e.which == iKey) && c != "?" && c != "DONE") {
 			date = new Date();
 			seconds = date.getTime()/1000;
 			diff = seconds - start; // time to select an answer
 			start = seconds;
 			matrixReturn[curBlock-1][1][i] = diff;
-			if ((e.which == 69 && c < 5) || (e.which == 73 && c >= 5)) {
+			if ((e.which == eKey && c < 5) || (e.which == iKey && c >= 5)) {
 				matrixReturn[curBlock-1][2][i] = 0;
 				curTrial++;
 				if (curTrial > numTrials) {
@@ -263,22 +237,22 @@ function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
 						item = arrRightStack.pop();
 					}																			//Ends else if to choose positive word
 
-					if (arr1.indexOf(item) >= 0) {
+					if (arrConcept1.indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color1");
-						matrixReturn[curBlock-1][3][i+1] = name1;
-					} else if(arr2.indexOf(item) >= 0) {
+						matrixReturn[curBlock-1][3][i+1] = concept1;
+					} else if(arrConcept2.indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color1");
-						matrixReturn[curBlock-1][3][i+1] = name2;
-					} else if(arr3.indexOf(item) >= 0) {
+						matrixReturn[curBlock-1][3][i+1] = concept2;
+					} else if(arrAttribute1.indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color2");
-						matrixReturn[curBlock-1][3][i+1] = name3;
-					} else if(arr4.indexOf(item) >= 0) {
+						matrixReturn[curBlock-1][3][i+1] = attribute1;
+					} else if(arrAttribute2.indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color2");
-						matrixReturn[curBlock-1][3][i+1] = name4;
+						matrixReturn[curBlock-1][3][i+1] = attribute2;
 					}
 
 					$("#console").html(item);
@@ -297,34 +271,35 @@ function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
 
 		}			
 			
+    // Sets the labels specifying which side the concepts/attributes are associated with
 		switch (curBlock) {
 			case 1:
-				nameLeft = "<span class='color1'>" + name1 + "</span>";
-				nameRight = "<span class='color1'>" + name2 + "</span>";
+				nameLeft  = makeSpan(1,concept1)
+				nameRight = makeSpan(1,concept2)
 				break;
 			case 2:
-				nameLeft = "<span class='color2'>" + name3 + "</span>";
-				nameRight = "<span class='color2'>" + name4 + "</span>";				 
+				nameLeft  = makeSpan(2,attribute1)
+				nameRight = makeSpan(2,attribute2)
 				break;
 			case 3:
-				nameLeft = "<span class='color1'>" + name1 + "</span>" + " or <span class='color2'>" + name3 + "</span>";
-				nameRight = "<span class='color1'>" + name2 + "</span>" + " or <span class='color2'>" + name4 + "</span>";
+				nameLeft  = makeSpan(1,concept1) + " or " + makeSpan(2,attribute1)
+				nameRight = makeSpan(1,concept2) + " or " + makeSpan(2,attribute2)
 				break;
 			case 4:
-				nameLeft = "<span class='color1'>" + name1 + "</span>" + " or <span class='color2'>" + name3 + "</span>";
-				nameRight = "<span class='color1'>" + name2 + "</span>" + " or <span class='color2'>" + name4 + "</span>";
+				nameLeft  = makeSpan(1,concept1) + " or " + makeSpan(2,attribute1)
+				nameRight = makeSpan(1,concept2) + " or " + makeSpan(2,attribute2)
 				break;
 			case 5:
-				nameLeft = "<span class='color1'>" + name2 + "</span>";
-				nameRight = "<span class='color1'>" + name1 + "</span>";
+				nameLeft  = makeSpan(1,concept2)
+				nameRight = makeSpan(1,concept1)
 				break;
 			case 6:
-				nameLeft = "<span class='color1'>" + name2 + "</span>" + " or <span class='color2'>" + name3 + "</span>";
-				nameRight = "<span class='color1'>" + name1 + "</span>" + " or <span class='color2'>" + name4 + "</span>";
+				nameLeft  = makeSpan(1,concept2) + " or " + makeSpan(2,attribute1)
+				nameRight = makeSpan(1,concept1) + " or " + makeSpan(2,attribute2)
 				break;
 			case 7:
-				nameLeft = "<span class='color1'>" + name2 + "</span>" + " or <span class='color2'>" + name3 + "</span>";
-				nameRight = "<span class='color1'>" + name1 + "</span>" + " or <span class='color2'>" + name4 + "</span>";
+				nameLeft  = makeSpan(1,concept2) + " or " + makeSpan(2,attribute1)
+				nameRight = makeSpan(1,concept1) + " or " + makeSpan(2,attribute2)
 				break;
 			default:
 				c = "DONE";
@@ -344,9 +319,7 @@ function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
 			jsonMatrix = JSON.stringify(matrixReturn);
 			
 			if (post == 0) {
-				$.post( "ajax/iat.php", {"matrix" : jsonMatrix, "type": iatType, "categories_order": categories_order}, function(result) {
-				  	$("#results").html(result);
-				});
+        sendData(jsonMatrix, categories_order)
 				post = 1;
 			}
 			
@@ -354,4 +327,7 @@ function iat (title1, title2, title3, title4, array1, array2, array3, array4) {
 		}
 	});
 	
+  // Ending iat()
 }
+
+
