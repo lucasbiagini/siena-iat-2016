@@ -20,7 +20,9 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	var attribute2 = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"];
 	
 	$(document).ready(function(){
-		iat("Computer Science", "Biology", "Female", "Male", concept1, concept2, attribute1, attribute2);		
+    iat({1:"Computer Science", 2:"Biology"},
+        {1:"Female", 2:"Male"},
+        {concept1:concept1, concept2:concept2, attribute1:attribute1, attribute2:attribute2});		
 	});	
 	</script>
 </head>

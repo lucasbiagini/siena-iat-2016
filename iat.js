@@ -31,78 +31,97 @@ function sendData(jsonMatrix, categories_order) {
   });
 }
 
+function newState() {
+	if (Math.floor((Math.random()*2)) == 0) {
+		return 'LEFT';
+	} else {
+		return 'RIGHT';
+	}
+}
 
-function iat (concept1, concept2, attribute1, attribute2, arrConcept1, arrConcept2, arrAttribute1, arrAttribute2) {
+function iat (concepts, attributes, wordArrs) {
 
-	categories_order = concept1 + ", " + concept2 + ", " + attribute1 + ", " + attribute2;
+	categories_order = concepts[1] + ", " + concepts[2] + ", " + attributes[1] + ", " + attributes[2];
+
+	// The shape of the matrix is (block number, [word shown, respone time, correct, word's con/attr], trial number]
 	matrixReturn = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]];
 	i = 0;
-  //Current/starting trials
+	//Current/starting trials
+
+	// CHANGE AFTER DEBUGGING
+	//numTrials = 5;
 	numTrials = 20;
-  //Current block on; always start with 1
+
+	//Current block on; always start with 1
 	curBlock = 1;
-  //Current trial on; always start with 1
+	//Current trial on; always start with 1
 	curTrial = 1;
-	c = "?"
+	currentState = "NEW_BLOCK"
 	start = 0;
 	diff = 0;
 	post = 0;
 
-	nameLeft = makeSpan(1, concept1);
-	nameRight = makeSpan(1, concept2);
+	nameLeft = makeSpan(1, concepts[1]);
+	nameRight = makeSpan(1, concepts[2]);
 
-	$("#directions").html(numTrials + " words will be shown. Press 'e' if the word is " + nameLeft.toLowerCase()  + ", 'i' if the word is " + nameRight.toLowerCase() + ".");
+	$("#directions").html(numTrials + " words will be shown. Press 'e' if the word is "
+			+ nameLeft.toLowerCase()  + ", 'i' if the word is " + nameRight.toLowerCase() + ".");
 	$("#left").html(nameLeft);
 	$("#right").html(nameRight);
 	$("#start").show();
 	$("#error").hide();
 
-	$(document).keyup(function(e) {
+	//$(document).keyup(function(e) {
+	$(document).keydown(function(e) {
 		$("#error").hide();
+
+		// arrLeftCon represents the array containing the list of concepts on the left
+		// arrLeftAttr represents the array containing the list of attributes on the left
 		switch (curBlock) {
 			case 1:
-				arrLeft = arrConcept1;
-				arrRight = arrConcept2;
+				arrLeft = wordArrs['concept1'];
+				arrRight = wordArrs['concept2'];
 				break;
 			case 2:
-				arrLeft = arrAttribute1;
-				arrRight = arrAttribute2;					 
+				arrLeft = wordArrs['attribute1'];
+				arrRight = wordArrs['attribute2'];					 
 				break;
 			case 3:
-				arrLeft1 = arrConcept1;
-				arrLeft2 = arrAttribute1;
-				arrRight1 = arrConcept2;
-				arrRight2 = arrAttribute2;
+				arrLeftCon = wordArrs['concept1'];
+				arrLeftAttr = wordArrs['attribute1'];
+				arrRightCon = wordArrs['concept2'];
+				arrRightAttr = wordArrs['attribute2'];
 				break;
 			case 4:
-				arrLeft1 = arrConcept1;
-				arrLeft2 = arrAttribute1;
-				arrRight1 = arrConcept2;
-				arrRight2 = arrAttribute2;
+				arrLeftCon = wordArrs['concept1'];
+				arrLeftAttr = wordArrs['attribute1'];
+				arrRightCon = wordArrs['concept2'];
+				arrRightAttr = wordArrs['attribute2'];
 				break;
 			case 5:
-				arrLeft = arrConcept2;
-				arrRight = arrConcept1;
+				arrLeft = wordArrs['concept2'];
+				arrRight = wordArrs['concept1'];
 				break;
 			case 6:
-				arrLeft1 = arrConcept2;
-				arrLeft2 = arrAttribute1;
-				arrRight1 = arrConcept1;
-				arrRight2 = arrAttribute2;
+				arrLeftCon = wordArrs['concept2'];
+				arrLeftAttr = wordArrs['attribute1'];
+				arrRightCon = wordArrs['concept1'];
+				arrRightAttr = wordArrs['attribute2'];
 				break;
 			case 7:
-				arrLeft1 = arrConcept2;
-				arrLeft2 = arrAttribute1;
-				arrRight1 = arrConcept1;
-				arrRight2 = arrAttribute2;
+				arrLeftCon = wordArrs['concept2'];
+				arrLeftAttr = wordArrs['attribute1'];
+				arrRightCon = wordArrs['concept1'];
+				arrRightAttr = wordArrs['attribute2'];
 				break;
 			default:
-				c = "DONE";
+				currentState = "DONE";
 				break;				
 		}
 				
 
-		if (e.which == spaceKey && c == "?") {
+		// This if block is run at the beginning of each IAT block
+		if (e.which == spaceKey && currentState == "NEW_BLOCK") {
 			$("#start").hide();
 			date = new Date();
 			seconds = date.getTime()/1000;
@@ -111,148 +130,130 @@ function iat (concept1, concept2, attribute1, attribute2, arrConcept1, arrConcep
 			if (curBlock == 1 || curBlock == 2 || curBlock == 5) {
 				arrLeftStack =  shuffle(arrLeft.slice());
 				arrRightStack = shuffle(arrRight.slice());
-			} else {
-				arrLeftStackAux1 = shuffle(arrLeft1.slice());
-				arrLeftStackAux2 = shuffle(arrLeft2.slice());
+			} else { // if ( curBlock == 3, 4, 6, 7 )
+				arrLeftStack = shuffle(arrLeftCon.concat(arrLeftAttr));
+				arrRightStack = shuffle(arrRightCon.concat(arrRightAttr));
+			/*
+				arrLeftConStack = shuffle(arrLeftCon.slice());
+				arrLeftAttrStack = shuffle(arrLeftAttr.slice());
 
-				arrRightStackAux1 = shuffle(arrRight1.slice());
-				arrRightStackAux2 = shuffle(arrRight2.slice());
+				arrRightConStack = shuffle(arrRightCon.slice());
+				arrRightAttrStack = shuffle(arrRightAttr.slice());
 
+				// I have no idea what this modulus is doing
 				if (curTrial%2 == 0) {
-					arrRightStack = arrRightStackAux1;
-					arrLeftStack = arrLeftStackAux1;
+					arrRightStack = arrRightConStack;
+					arrLeftStack = arrLeftConStack;
 				} else {
-					arrLeftStack = arrLeftStackAux2;
-					arrRightStack = arrRightStackAux2;
+					arrLeftStack = arrLeftAttrStack;
+					arrRightStack = arrRightAttrStack;
 				}
+				*/
 
 			}
 
-			c = Math.floor(Math.random() *10);
-			if(c < 5){ 															//If random number < 5, pick from left array	
+			currentState = newState();
+			// If currentState is < 5 the value comes from the left array, else the right
+			if(currentState == 'LEFT'){
 				item = arrLeftStack.pop();
-			} 																			//Ends if statement to check if random number < 5
-			else { 														//If random number >= 5, pick from right array
-				
+			}	else {
 				item = arrRightStack.pop();
-			}																			//Ends else if to choose positive word
+			}
 					
-			if (arrConcept1.indexOf(item) >= 0) {
+			if (wordArrs['concept1'].indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color1");
-				matrixReturn[curBlock-1][3][i] = concept1;
-			} else if(arrConcept2.indexOf(item) >= 0) {
+				matrixReturn[curBlock-1][3][i] = concepts[1];
+			} else if(wordArrs['concept2'].indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color1");
-				matrixReturn[curBlock-1][3][i] = concept2;
-			} else if(arrAttribute1.indexOf(item) >= 0) {
+				matrixReturn[curBlock-1][3][i] = concepts[2];
+			} else if(wordArrs['attribute1'].indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color2");
-				matrixReturn[curBlock-1][3][i] = attribute1;
-			} else if(arrAttribute2.indexOf(item) >= 0) {
+				matrixReturn[curBlock-1][3][i] = attributes[1];
+			} else if(wordArrs['attribute2'].indexOf(item) >= 0) {
 				$("#console").removeClass();
 				$("#console").addClass("color2");
-				matrixReturn[curBlock-1][3][i] = attribute2;
+				matrixReturn[curBlock-1][3][i] = attributes[2];
 			}
 
 			$("#console").html(item);
 
 			matrixReturn[curBlock-1][0][i] = item;
-		} else if ((e.which == eKey || e.which == iKey) && c != "?" && c != "DONE") {
+		} else if ((e.which == eKey || e.which == iKey) && currentState != "NEW_BLOCK" && currentState != "DONE") {
+			// Not sure if we need a new date object here
 			date = new Date();
 			seconds = date.getTime()/1000;
 			diff = seconds - start; // time to select an answer
 			start = seconds;
 			matrixReturn[curBlock-1][1][i] = diff;
-			if ((e.which == eKey && c < 5) || (e.which == iKey && c >= 5)) {
+			// An entry of 0 in matrixReturn[?][2][?] represents a correct answer
+			if ((e.which == eKey && currentState == 'LEFT') || (e.which == iKey && currentState == 'RIGHT')) {
 				matrixReturn[curBlock-1][2][i] = 0;
 				curTrial++;
+
+				// Reseting for the next block
 				if (curTrial > numTrials) {
 					$("#error").hide();																		
 					curTrial = 1;
 					curBlock++;
 					if (curBlock == 1 || curBlock == 2 || curBlock == 3 || curBlock == 6) {
+						// CHANGE AFTER DEBUGGING
+						//numTrials = 5;
 						numTrials = 20;
 					} else if (curBlock == 4 || curBlock == 5 || curBlock == 7) {
+						// CHANGE AFTER DEBUGGING
+						//numTrials = 10;
 						numTrials = 40;
 					}
-					c = "?";
+					currentState = "NEW_BLOCK";
 					$("#console").html("");
 					$("#start").show();
 					i = 0;
-				} else {
-					c = Math.floor(Math.random() *10);
-					if (curBlock == 1 || curBlock == 2 || curBlock == 5) {
-						if (arrLeftStack.length == 0 && arrRightStack.length == 0) {
-							arrLeftStack = arrLeft.slice();
-							arrRightStack = arrRight.slice();
-						} else {
-							if (arrLeftStack.length == 0) {
-								c = 7;
-							} 
-							if (arrRightStack.length == 0) {
-								c = 3;
-							}
-						}
-
-						arrLeftStack = shuffle(arrLeftStack);
-						arrRightStack = shuffle(arrRightStack);
-					} else {
-						if (curTrial%2 == 0) {
-							if (arrLeftStackAux1.length == 0 && arrRightStackAux1.length == 0) {
-								arrLeftStackAux1 = shuffle(arrLeft1.slice());
-								arrRightStackAux1 = shuffle(arrRight1.slice());
-							} else {
-								if (arrLeftStackAux1.length == 0) {
-									c = 7;
-								} 
-								if (arrRightStackAux1.length == 0) {
-									c = 3;
-								}
-							}
-							arrLeftStack = arrLeftStackAux1;
-							arrRightStack = arrRightStackAux1;
-						} else {
-							if (arrLeftStackAux2.length == 0 && arrRightStackAux2.length == 0) {
-								arrLeftStackAux2 = shuffle(arrLeft2.slice());
-								arrRightStackAux2 = shuffle(arrRight2.slice());
-							} else {
-								if (arrLeftStackAux2.length == 0) {
-									c = 7;
-								} 
-								if (arrRightStackAux2.length == 0) {
-									c = 3;
-								}
-							}
-							arrLeftStack = arrLeftStackAux2;
-							arrRightStack = arrRightStackAux2;
+				} else { // If not reseting
+					currentState = newState();
+					//
+					// If both sides are empty
+					if (arrLeftStack.length == 0 && arrRightStack.length == 0) {
+						arrLeftStack = arrLeft.slice();
+						arrRightStack = arrRight.slice();
+					} else { // If once side is non-empty
+						if (arrLeftStack.length == 0) {
+							// Why is being set to 7?!
+							currentState = 'RIGHT';
+						} 
+						if (arrRightStack.length == 0) {
+							currentState = 'LEFT';
 						}
 					}
 
+					// Not sure why they are being shuffled here
+					arrLeftStack = shuffle(arrLeftStack);
+					arrRightStack = shuffle(arrRightStack);
 					
-					if(c < 5){ 													//If random number < 5, pick from left array
+					if ( currentState == 'LEFT' ){
 						item = arrLeftStack.pop();
-					} 																			//Ends if statement to check if random number < 5
-					else { 														//If random number >= 5, pick from right array
+					} else { 						
 						item = arrRightStack.pop();
-					}																			//Ends else if to choose positive word
+					}								
 
-					if (arrConcept1.indexOf(item) >= 0) {
+					if (wordArrs['concept1'].indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color1");
-						matrixReturn[curBlock-1][3][i+1] = concept1;
-					} else if(arrConcept2.indexOf(item) >= 0) {
+						matrixReturn[curBlock-1][3][i+1] = concepts[1];
+					} else if(wordArrs['concept2'].indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color1");
-						matrixReturn[curBlock-1][3][i+1] = concept2;
-					} else if(arrAttribute1.indexOf(item) >= 0) {
+						matrixReturn[curBlock-1][3][i+1] = concepts[2];
+					} else if(wordArrs['attribute1'].indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color2");
-						matrixReturn[curBlock-1][3][i+1] = attribute1;
-					} else if(arrAttribute2.indexOf(item) >= 0) {
+						matrixReturn[curBlock-1][3][i+1] = attributes[1];
+					} else if(wordArrs['attribute2'].indexOf(item) >= 0) {
 						$("#console").removeClass();
 						$("#console").addClass("color2");
-						matrixReturn[curBlock-1][3][i+1] = attribute2;
+						matrixReturn[curBlock-1][3][i+1] = attributes[2];
 					}
 
 					$("#console").html(item);
@@ -271,42 +272,43 @@ function iat (concept1, concept2, attribute1, attribute2, arrConcept1, arrConcep
 
 		}			
 			
-    // Sets the labels specifying which side the concepts/attributes are associated with
+		// Sets the labels specifying which side the concepts/attributes are associated with
 		switch (curBlock) {
 			case 1:
-				nameLeft  = makeSpan(1,concept1)
-				nameRight = makeSpan(1,concept2)
+				nameLeft  = makeSpan(1,concepts[1])
+				nameRight = makeSpan(1,concepts[2])
 				break;
 			case 2:
-				nameLeft  = makeSpan(2,attribute1)
-				nameRight = makeSpan(2,attribute2)
+				nameLeft  = makeSpan(2,attributes[1])
+				nameRight = makeSpan(2,attributes[2])
 				break;
 			case 3:
-				nameLeft  = makeSpan(1,concept1) + " or " + makeSpan(2,attribute1)
-				nameRight = makeSpan(1,concept2) + " or " + makeSpan(2,attribute2)
+				nameLeft  = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[1])
+				nameRight = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[2])
 				break;
 			case 4:
-				nameLeft  = makeSpan(1,concept1) + " or " + makeSpan(2,attribute1)
-				nameRight = makeSpan(1,concept2) + " or " + makeSpan(2,attribute2)
+				nameLeft  = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[1])
+				nameRight = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[2])
 				break;
 			case 5:
-				nameLeft  = makeSpan(1,concept2)
-				nameRight = makeSpan(1,concept1)
+				nameLeft  = makeSpan(1,concepts[2])
+				nameRight = makeSpan(1,concepts[1])
 				break;
 			case 6:
-				nameLeft  = makeSpan(1,concept2) + " or " + makeSpan(2,attribute1)
-				nameRight = makeSpan(1,concept1) + " or " + makeSpan(2,attribute2)
+				nameLeft  = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[1])
+				nameRight = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[2])
 				break;
 			case 7:
-				nameLeft  = makeSpan(1,concept2) + " or " + makeSpan(2,attribute1)
-				nameRight = makeSpan(1,concept1) + " or " + makeSpan(2,attribute2)
+				nameLeft  = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[1])
+				nameRight = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[2])
 				break;
 			default:
-				c = "DONE";
+				currentState = "DONE";
 				break;				
 		}
-		if (c != "DONE") {
-			$("#directions").html(numTrials + " words will be shown. Press 'e' if the word is " + nameLeft.toLowerCase()  + ", 'i' if the word is " + nameRight.toLowerCase() + ".");
+		if (currentState != "DONE") {
+			$("#directions").html(numTrials + " words will be shown. Press 'e' if the word is "
+					+ nameLeft.toLowerCase()  + ", 'i' if the word is " + nameRight.toLowerCase() + ".");
 			$("#left").html(nameLeft.replace(" or ", "<br>or<br>"));
 			$("#right").html(nameRight.replace(" or ", "<br>or<br>"));
 		} else {
@@ -317,17 +319,16 @@ function iat (concept1, concept2, attribute1, attribute2, arrConcept1, arrConcep
 			$("#left").html("");
 			$("#right").html("");
 			jsonMatrix = JSON.stringify(matrixReturn);
+			$('body').html(jsonMatrix)
 			
 			if (post == 0) {
         sendData(jsonMatrix, categories_order)
 				post = 1;
 			}
-			
-			
 		}
 	});
 	
-  // Ending iat()
+	// Ending iat()
 }
 
 
