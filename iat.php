@@ -37,7 +37,7 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	<div style="clear:both"></div>
 	<p id="console"></p>
 	<p id="error"><img src="images/error.png" width="100" height="100" alt="Error"></p>
-	<p id="start">Press 'spacebar' to begin.</p>
+	<p id="start">Press the spacebar to begin.</p>
 	<div id="return"></div>
 
 
