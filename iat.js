@@ -192,8 +192,8 @@ function checkStacks(wordStack) {
 }
 
 function setLabels(trials, labels) {
-  $("#directions").html(trials + " words will be shown. Press \"e\" if the word is "
-      + labels['LEFT'].toLowerCase()  + ", \"i\" if the word is " + labels['RIGHT'].toLowerCase() + ".");
+  $("#directions").html(trials + " words will be shown. Press “e” if the word is "
+      + labels['LEFT'].toLowerCase()  + ", “i” if the word is " + labels['RIGHT'].toLowerCase() + ".");
   $("#left").html(labels['LEFT']);
   $("#right").html(labels['RIGHT']);
   if (currentState == 'NEW_BLOCK') {
