@@ -16,12 +16,12 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 
 	var concept1   = ["Apps", "Computer", "Algorithm", "Database", "Internet", "Programming", "Software", "Technology"];
 	var concept2   = ["Nature", "Life", "Photosynthesis", "Habitat", "Organs", "Plants", "Species", "Protein"];
-	var attribute1 = ["Mary", "Patricia", "Jennifer", "Elizabeth", "Linda", "Barbara", "Susan", "Margaret"];
-	var attribute2 = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"];
+	var attribute1 = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"];
+	var attribute2 = ["Mary", "Patricia", "Jennifer", "Elizabeth", "Linda", "Barbara", "Susan", "Margaret"];
 	
 	$(document).ready(function(){
     iat({1:"Computer Science", 2:"Biology"},
-        {1:"Female", 2:"Male"},
+        {1:"Male", 2:"Female"},
         {concept1:concept1, concept2:concept2, attribute1:attribute1, attribute2:attribute2});		
 	});	
 	</script>
