@@ -1,8 +1,10 @@
 <?php 
 session_start(); 
+/* Changed for DEBUGGING
 if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	header( 'Location: /');
 }
+ */
 ?>
 <!DOCTYPE html>
 <html>

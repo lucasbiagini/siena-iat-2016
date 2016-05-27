@@ -10,7 +10,6 @@ var wordArrs;
 var concepts;
 var attributes;
 var curBlock = 0;
-var iteration;
 var curTrial;
 var currentState;
 var dataSent = false;
@@ -118,7 +117,7 @@ function setWordInfo(item, matrix) {
   } else {
     throw Error("item was not found in any word lists")
   }
-  matrix[curBlock-1][3][iteration] = value;
+  matrix[curBlock-1][3][curTrial] = value;
 }
 
 function getSideLabels() {
@@ -166,8 +165,7 @@ function endIAT(matrix, categories_order) {
   $("#left").html("");
   $("#right").html("");
   jsonMatrix = JSON.stringify(matrix);
-  // Good for debugging
-  $('body').html(jsonMatrix)
+  console.log(matrix)
   
   if (!dataSent) {
     sendData(jsonMatrix, categories_order)
@@ -204,15 +202,19 @@ function setLabels(trials, labels) {
 }
 
 function nextBlock() {
-  curTrial = 1;
+  curTrial = 0;
   curBlock++;
   currentState = "NEW_BLOCK";
   $("#console").html("");
   $("#start").show();
-  iteration = 0;
 }
 
-function onKeyDown(e, wordStack, matrixReturn, categories_order) {
+function isCorrect(e) {
+return (e.which == E_KEY && currentState == 'LEFT')
+  || (e.which == I_KEY && currentState == 'RIGHT')
+}
+
+function onKeyDown(e, wordStack, dataMatrix, categories_order) {
   if (currentState == 'DONE')
     return;
 
@@ -229,41 +231,41 @@ function onKeyDown(e, wordStack, matrixReturn, categories_order) {
     currentState = newState();
 
     var item = wordStack[currentState].pop();
-    setWordInfo(item, matrixReturn);
+    setWordInfo(item, dataMatrix);
     $("#console").html(item);
-    matrixReturn[curBlock-1][0][iteration] = item;
+    dataMatrix[curBlock-1][0][curTrial] = item;
 
   } else if ((e.which == E_KEY || e.which == I_KEY) && (currentState == "LEFT" || currentState == "RIGHT")) {
     var seconds = new Date().getTime()/1000;
-    matrixReturn[curBlock-1][1][iteration] = seconds - start;
+    if (typeof dataMatrix[curBlock-1][1][curTrial] === 'undefined') {
+      dataMatrix[curBlock-1][1][curTrial] = seconds - start;
+      console.log("Setting: " + dataMatrix[curBlock-1][1][curTrial])
+    }
     start = seconds;
 
     // If the correct key is pressed
-    if ((e.which == E_KEY && currentState == 'LEFT') || (e.which == I_KEY && currentState == 'RIGHT')) {
-      // An entry of 0 in matrixReturn[?][2][?] represents a correct answer
-      matrixReturn[curBlock-1][2][iteration] = 0;
+    if (isCorrect(e)) {
+      // An entry of 0 in dataMatrix[?][2][?] represents a correct answer
+      if (typeof dataMatrix[curBlock-1][2][curTrial] === 'undefined') {
+        dataMatrix[curBlock-1][2][curTrial] = 0;
+      }
       curTrial++;
       $("#error").hide();                                    
 
       // Reseting for the next block
-      if (curTrial > trialLengths[curBlock]) {
+      if (curTrial >= trialLengths[curBlock]) {
         nextBlock();
       } else { // If not reseting
         currentState = newState();
         currentState = checkStacks(wordStack);
         item = wordStack[currentState].pop();
-        setWordInfo(item, matrixReturn);
+        setWordInfo(item, dataMatrix);
         $("#console").html(item);
-        matrixReturn[curBlock-1][0][iteration+1] = item;
-        iteration++;
+        dataMatrix[curBlock-1][0][curTrial] = item;
       }
     } else { // If the incorrect key is pressed
-      // This might be recording data points that we do not want recorded
       $("#error").show();
-      matrixReturn[curBlock - 1][2][iteration] = 1;
-      matrixReturn[curBlock - 1][0][iteration + 1] = matrixReturn[curBlock - 1][0][iteration];
-      matrixReturn[curBlock - 1][3][iteration + 1] = matrixReturn[curBlock - 1][3][iteration];
-      iteration++;
+      dataMatrix[curBlock - 1][2][curTrial] = 1;
     }
   }      
     
@@ -275,7 +277,7 @@ function onKeyDown(e, wordStack, matrixReturn, categories_order) {
   if (currentState != "DONE") {
     setLabels(trialLengths[curBlock], sideLabels)
   } else {
-    endIAT(matrixReturn, categories_order);
+    endIAT(dataMatrix, categories_order);
   }
 
 }
@@ -289,7 +291,7 @@ function iat (argConcepts, argAttributes, argWordArrs) {
     + ", " + attributes[1] + ", " + attributes[2];
   // The shape of the matrix is (block number,
   // [word shown, respone time, correct, word's con/attr], trial number]
-  var matrixReturn = [ [ [],[],[],[] ] , [ [],[],[],[] ] , [ [],[],[],[] ]
+  var dataMatrix = [ [ [],[],[],[] ] , [ [],[],[],[] ] , [ [],[],[],[] ]
     , [ [],[],[],[] ] , [ [],[],[],[] ] , [ [],[],[],[] ] , [ [],[],[],[] ] ];
 
   var start = 0;
@@ -304,7 +306,7 @@ function iat (argConcepts, argAttributes, argWordArrs) {
   var blockWords = {}
 
   $(document).keydown(function(e) {
-    onKeyDown(e, wordStack, matrixReturn, categories_order);
+    onKeyDown(e, wordStack, dataMatrix, categories_order);
   });
 } 
 
