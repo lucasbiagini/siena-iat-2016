@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `survey` (
   `age`         TINYINT UNSIGNED DEFAULT NULL,
   `ethnicity`   VARCHAR(45) DEFAULT NULL,
   `numberiats`  TINYINT UNSIGNED DEFAULT NULL,
-  `country`     VARCHAR(45) DEFAULT NULL,
+  `country`     VARCHAR(3) DEFAULT NULL,
   `field`       VARCHAR(45) DEFAULT NULL,
   `background`  VARCHAR(45) DEFAULT NULL,
   `reg_date`    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,7 +27,11 @@ CREATE TABLE IF NOT EXISTS `iat` (
   `categories_order`  VARCHAR(100) DEFAULT NULL,
   `label`             INT(11) NOT NULL DEFAULT '0',
 
-  PRIMARY KEY (`idiat`)
+  PRIMARY KEY (`idiat`),
+  FOREIGN KEY (`idperson`)
+    REFERENCES survey(`idperson`)
+    ON DELETE CASCADE
+
 ) ENGINE=MyISAM AUTO_INCREMENT=15; -- What is this auto_i for?
 
 CREATE TABLE IF NOT EXISTS `trials` (
@@ -40,5 +44,8 @@ CREATE TABLE IF NOT EXISTS `trials` (
   `error`         INT(11) DEFAULT NULL,
   `block`         INT(11) DEFAULT NULL,
 
-  PRIMARY KEY (`idiat`,`trial_seq`) -- Primary key should be idiat, block, trial_something
+  PRIMARY KEY (`idiat`,`trial_seq`), -- Primary key should be idiat, block, trial_something
+  FOREIGN KEY (`idiat`)
+    REFERENCES iat(`idiat`)
+    ON DELETE CASCADE
 ) ENGINE=MyISAM;

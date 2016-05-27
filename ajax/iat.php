@@ -31,7 +31,8 @@ $idPerson = $_SESSION['idPerson'];
 //prepare the data of the iat before save it
 $values_mysql = "";
 $array_csv = array();
-$array_csv[] = array("Seq Number", "Trial Number", "Response Time", "Item", "Category", "Error","Block");
+$array_csv[] = array("Seq Number", "Trial Number", "Response Time",
+  "Item", "Category", "Error","Block");
 $seq_number = 1;
 $trial_number = 1;
 foreach ($data as $key => $block) {
@@ -42,14 +43,16 @@ foreach ($data as $key => $block) {
 		$category = $block[3][$i];
 
 		//create the array to save the data into the csv file
-		$array_csv[] = array($seq_number, $trial_number, $responseTime, $item, $category, $error, ($key+1));
+    $array_csv[] = array($seq_number, $trial_number, $responseTime,
+      $item, $category, $error, ($key+1));
 
 		//create the string to do the insert into the database
-		if ($seq_number == 1) {
-			$values_mysql .= "(" . $idIat  . "," . $seq_number . "," . $trial_number . "," . $responseTime . ",'" . $item . "','"  . $category . "'," . $error . "," . ($key + 1) . ")" ;
-		} else {
-			$values_mysql .= ",(" . $idIat . "," . $seq_number . "," . $trial_number . "," . $responseTime . ",'" . $item . "','"  . $category . "'," . $error . "," . ($key + 1) . ")" ;
+		if ($seq_number != 1) {
+      $values_mysql .= ",";
 		}
+    $values_mysql .= "($idIat, $seq_number, $trial_number, $responseTime,
+      '$item','$category', $error," . ($key + 1) . ")" ;
+
 		if ($error == 0) {
 			$trial_number++;
 		}
@@ -58,7 +61,8 @@ foreach ($data as $key => $block) {
 }
 
 //insert the data of the iat into the database
-if (!$mysqli->query("INSERT INTO trials (idiat, trial_seq, trial_number, response_time, item, category, error, block) VALUES ".$values_mysql."")) {
+if (!$mysqli->query("INSERT INTO trials (idiat, trial_seq, trial_number,
+  response_time, item, category, error, block) VALUES ".$values_mysql."")) {
     echo "Multi-INSERT failed: (" . $mysqli->errno . ") " . $mysqli->error;
 } else {
 	//echo "Success! The data was saved in the database and in the csv file. Do not forget to save your ID ".$idPerson.".";
@@ -120,16 +124,21 @@ function findPooledSD($rtsNum1, $rtsNum2, $sD1, $sD2){
 //throw out iat where 12 or more response times > 10 and where 12 or more response times < 0.3
 
 //calculate number of response times > 10.0
-$greaterRT = $mysqli->query("SELECT response_time, sum(error) as number_errors FROM trials as A where idiat = " . $idIat . " and (block = 3 or block = 4 or block = 6 or block = 7) and response_time > 10.0 group by trial_number");
+$greaterRT = $mysqli->query("SELECT response_time, sum(error)
+  as number_errors FROM trials as A where idiat = " . $idIat
+  . " and (block = 3 or block = 4 or block = 6 or block = 7)
+  and response_time > 10.0 group by trial_number");
 $tooLong = array();
 while($gTimes = mysqli_fetch_array($greaterRT, MYSQLI_ASSOC)){
 	$tooLong[] = $gTimes['response_time'];
 }
 $numGreater = count($tooLong);
 
-
 //calculate the number of response times < 0.3
-$lessRT = $mysqli->query("SELECT response_time, sum(error) as number_errors FROM trials as A where idiat = " . $idIat . " and (block = 3 or block = 4 or block = 6 or block = 7) and response_time < 0.3 group by trial_number");
+$lessRT = $mysqli->query("SELECT response_time, sum(error)
+  as number_errors FROM trials as A where idiat = " . $idIat
+  . " and (block = 3 or block = 4 or block = 6 or block = 7)
+  and response_time < 0.3 group by trial_number");
 $tooShort = array();
 while($lTimes = mysqli_fetch_array($lessRT, MYSQLI_ASSOC)){
 	$tooShort[] = $lTimes['response_time'];
@@ -157,7 +166,10 @@ $arr7 = array(0.3000000001, 0.3000000001, 0.3000000001, 0.3000000001, 0.30000000
 //$result = $mysqli->query("SELECT block, sum(response_time) as sum_response_time FROM trials where idiat = " . $idIat . " and (block = 3 or block = 4 or block = 6 or block = 7) group by trial_number having sum_response_time < 10.0 and sum_response_time > 0.3");
 //$result = $mysqli->query("SELECT block, response_time, (select sum(error) from trials as B where B.trial_number = A.trial_number and B.idiat = A.idiat) as number_errors FROM trials as A where idiat = " . $idIat . " and error = 0 and (block = 3 or block = 4 or block = 6 or block = 7) and response_time < 10.0 and response_time > 0.3");
 
-$result = $mysqli->query("SELECT block, response_time, sum(error) as number_errors FROM trials as A where idiat = " . $idIat . " and (block = 3 or block = 4 or block = 6 or block = 7) and response_time < 10.0 and response_time > 0.3 group by trial_number");
+  $result = $mysqli->query("SELECT block, response_time, sum(error)
+    as number_errors FROM trials as A where idiat = " . $idIat
+    . " and (block = 3 or block = 4 or block = 6 or block = 7)
+    and response_time < 10.0 and response_time > 0.3 group by trial_number");
 
 
 $arr3cRT = array();
@@ -326,7 +338,9 @@ Negative (-) score indicates a tendency to associate Male and Computer Science.<
 Values greater than 1 or less than -1 indicate moderately strong associations";
 
 //update the score in the iat table
-if (!$mysqli->query("UPDATE iat SET score_original = " . $finalScore . ", score = " . $finalScoreUpdated . ", iat_type = '" . $iatType . "', categories_order = '" . $categories_order . "' where idiat = " . $idIat . "")) {
+if (!$mysqli->query("UPDATE iat SET score_original = " . $finalScore
+  . ", score = " . $finalScoreUpdated . ", iat_type = '" . $iatType
+  . "', categories_order = '" . $categories_order . "' where idiat = " . $idIat . "")) {
     echo "UPDATE failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 
