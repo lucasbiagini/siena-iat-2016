@@ -1,4 +1,5 @@
 <?php 
+require_once('includes/helper.php');
 session_start(); 
 /* Changed for DEBUGGING
 if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
@@ -12,9 +13,9 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	<title>Implicit Association Test Example</title>
 	<meta charset="utf-8">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="iat.js"></script>
+	<script src="includes/js/iat.js"></script>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" id="bootstrapCSS">
-	<link rel="stylesheet" type="text/css" href="css/theme.css">
+	<link rel="stylesheet" type="text/css" href="includes/css/theme.css">
 	<script>
 
     function startCheatIAT() {
@@ -58,10 +59,10 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	</div>
 	<div style="clear:both"></div>
 	<p id="console"></p>
-	<p id="error"><img src="images/error.png" width="100" height="100" alt="Error"></p>
-	<div id="results"></div>
+	<p id="error" style="display: none"><img src="media/error.png" width="100" height="100" alt="Incorrect Answer"></p>
+	<div id="results" style="display: none"></div>
 	<p id="start">Press the spacebar to begin.</p>
-  <button id="proceedButton" class="btn" onclick="startCheatIAT()">Proceed</button>
+  <button id="proceedButton" class="btn" style="display: none" onclick="startCheatIAT()">Proceed</button>
 	<div id="return"></div>
 
 

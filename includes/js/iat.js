@@ -40,7 +40,7 @@ function makeSpan(colorNumber, value) {
 }
 
 function sendData(jsonMatrix) {
-  $.post( "ajax/iat.php", {"matrix" : jsonMatrix}, function(result) {
+  $.post( "includes/ajax/iat.php", {"matrix" : jsonMatrix}, function(result) {
       $("#results").html(result);
       //$('#proceedButton').show();
   });

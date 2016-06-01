@@ -21,11 +21,9 @@ CREATE TABLE IF NOT EXISTS `iat` (
   `idiat`             INT(11) NOT NULL AUTO_INCREMENT,
   `idperson`          INT(11) DEFAULT NULL,
   `reg_date`          TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `score_original`    DOUBLE DEFAULT NULL,
   `score`             DOUBLE DEFAULT NULL,
-  `iat_type`          VARCHAR(1) DEFAULT NULL,
   `categories_order`  VARCHAR(100) DEFAULT NULL,
-  `label`             INT(11) NOT NULL DEFAULT '0',
+  `cheat_type`             INT(11) NOT NULL DEFAULT '0',
 
   PRIMARY KEY (`idiat`),
   FOREIGN KEY (`idperson`)
@@ -36,7 +34,6 @@ CREATE TABLE IF NOT EXISTS `iat` (
 
 CREATE TABLE IF NOT EXISTS `trials` (
   `idiat`         INT(11) NOT NULL,
-  `trial_seq`     INT(11) NOT NULL,
   `trial_number`  INT(11) DEFAULT NULL,
   `response_time` DOUBLE DEFAULT NULL,
   `item`          VARCHAR(45) DEFAULT NULL,

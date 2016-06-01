@@ -2,6 +2,7 @@
 session_start(); 
 if (empty($_SESSION['idPerson']	)) {
 	header( 'Location: /');
+require_once('includes/helper.php');
 }
 ?>
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ if (empty($_SESSION['idPerson']	)) {
 		<title>Instructions to IAT </title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="form.css">
+		<link rel="stylesheet" type="text/css" href="includes/css/form.css">
 		
 	</head>
 	<body>
@@ -63,7 +64,7 @@ if (empty($_SESSION['idPerson']	)) {
 		</div>
 		<script>
 			$("#cont").click(function() {
-				var url = "ajax/instructions.php"; 
+				var url = "includes/ajax/instructions.php"; 
 			    $.ajax({
 		           type: "POST",
 		           url: url,

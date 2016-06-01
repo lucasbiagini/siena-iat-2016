@@ -1,27 +1,15 @@
-<?php session_start(); ?>
+<?php session_start();
+require_once('includes/helper.php');
+?>
 <!DOCTYPE html>  <!-- ADD OCCUPATION TO THE Survey -->
 <html>
   <head>
     <meta charset="utf-8">
     <title>Survey</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="iat.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" id="css1">
-    <link rel="stylesheet" type="text/css" href="form.css" id="css2">
-    <script>
-    function inputOther(v) {
-      if (v == "other") {
-        document.getElementById('otherGender').style.display="inline";
-      } else {
-        document.getElementById('otherGender').style.display="none";
-      }
-      
-    }
-
-    $( "#button_submit" ).click(function() {
-      alert( "Handler for .submit() called." );
-    });
-    </script>
+    <script src="includes/js/iat.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" id="bootstrapCSS">
+    <link rel="stylesheet" type="text/css" href="includes/css/form.css" id="formCSS">
   </head>
   <body>
     <div id="page">
@@ -31,7 +19,7 @@
       <fieldset>
         <div class="form-group">
           Gender: 
-          <select name="gender" class="form-control" onchange="inputOther(this.value)">
+          <select name="gender" class="form-control">
             <option selected disabled></option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -391,7 +379,7 @@
           </select>
         </div>
         <div class="form-group">
-          Background level of Computer Science (1-Very Low; 4-Basic Knowledge; 7-Very High)<br>
+          Background knowledge of computer science (1-Very Low; 4-Basic Knowledge; 7-Very High)<br>
           <label for="1">1<br>
             <input type="radio" class="radio-inline" id="1" name="background" value="1">
           </label>
@@ -428,7 +416,7 @@
     // this is the id of the form
     $("#survey").submit(function() {
     
-      var url = "ajax/survey.php"; // the script where you handle the form input.
+      var url = "includes/ajax/survey.php"; // the script where you handle the form input.
 
       $.ajax({
              type: "POST",
@@ -438,7 +426,8 @@
                 if (data.status) {
                   window.location.href = "instructions.php";
                 } else {
-                  alert(data.msg);
+                  alert('An error occurred submitting the survey results')
+                  //alert(data.msg);
                 }
              },
            });

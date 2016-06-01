@@ -1,6 +1,6 @@
 <?php 
-  require_once("../includes/helper.php");
-  require_once("../db.php");
+  require_once("../helper.php");
+  require_once("db.php");
 
   session_start();
   @header('Content-type: application/json');

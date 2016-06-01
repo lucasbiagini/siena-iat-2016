@@ -1,7 +1,8 @@
 <?php 
 	session_start();
+  require_once('../helper.php');
+	include ("db.php");
 	$idPerson = $_SESSION['idPerson'];
-	include ("../db.php");
 
 	$query = "INSERT INTO iat (idperson) VALUES(".$idPerson.")";
 	$insert_row = $mysqli->query($query);

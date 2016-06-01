@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();
+  require_once('includes/helper.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,7 +10,7 @@
 		<title>Implicit Association Test </title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="form.css">
+		<link rel="stylesheet" type="text/css" href="includes/css/form.css">
 		
 	</head>
 	<body>
