@@ -27,7 +27,7 @@
   if ($result == -1) {
     $response_array['status'] = false;  
   } else {
-    $_SESSION['idPerson'] = $result;
+    $_SESSION['subjectId'] = $result;
     $response_array['status'] = true; 
   }
 

@@ -28,7 +28,7 @@ function getMYSQLI() {
 $mysqli = getMYSQLI();
 
 /**
- * Returns the insert_id if successful
+ * Returns the insert_id as the subject_id if successful
  */
 function insertSurvey($mysqli, $data) {
   //insert the data of the survey into the database
@@ -38,6 +38,7 @@ function insertSurvey($mysqli, $data) {
       VALUES(?,?,?,?,?,?,?)");
   if ($stmt == false) {
     error_log('The statement was not able to be prepared.');
+    error_log($mysqli->error);
     return -1;
   }
   $stmt->bind_param('sisissi', $data['gender'], $data['age'], $data['ethnicity'],
@@ -46,4 +47,49 @@ function insertSurvey($mysqli, $data) {
   return $mysqli->insert_id;
 }
 
+/**
+ * Returns the insert_id as the iad_id if successful
+ */
+function insertIat($mysqli, $subjectId, $cheatType){
+  $stmt = $mysqli->prepare(
+      "INSERT INTO iats (subject_id, cheat_type)
+      VALUES(?,?)");
+  if ($stmt == false) {
+    error_log('The statement was not able to be prepared.');
+    error_log($mysqli->error);
+    return -1;
+  }
+  $stmt->bind_param('ii', $subjectId, $cheatType);
+  $stmt->execute();
+  return $mysqli->insert_id;
+}
+
+function insertTrials($mysqli, $iatId, $data) {
+  // The shape of the matrix is (block number,
+  // [word shown, respone time, correct, word's con/attr], trial number]
+
+  $stmt = $mysqli->prepare("INSERT INTO trials
+      (iat_id, trial_number, response_time, item, category, error, block) 
+      VALUES (?,?,?,?,?,?,?)");
+  if ($stmt == false) {
+    error_log('The statement was not able to be prepared.');
+    error_log($mysqli->error);
+    return -1;
+  }
+  $numBlocks = count($data);
+  for ($i = 0; $i < $numBlocks; $i++) {
+    $numTrials = count($data[$i][0]);
+    for ($j = 0; $j < $numTrials; $j++) {
+      // Blocks are 1 indexed in the DB
+      $blockNum = $i + 1;
+      $stmt->bind_param('iidssii',
+          $iatId, $j, $data[$i][1][$j], $data[$i][0][$j], $data[$i][3][$j], $data[$i][2][$j], $blockNum);
+      $stmt->execute();
+      if ($mysqli->error) {
+        error_log($mysqli->error);
+      }
+    }
+  }
+  return 0;
+}
 ?>

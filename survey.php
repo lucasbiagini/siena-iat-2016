@@ -15,6 +15,7 @@ require_once('includes/helper.php');
     <div id="page">
     <div class="container">
     <h2>Survey</h2>
+    <p>All fields are optional</p>
     <form role="form" id="survey" action="" method="post">
       <fieldset>
         <div class="form-group">
@@ -23,7 +24,6 @@ require_once('includes/helper.php');
             <option selected disabled></option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="unknown">Prefer not to disclose</option>
             <option value="other">Other </option>
           </select> 
           <input type="text" placeholder="Describe" name="otherGender" id="otherGender" style="display:none;" maxlength="25">
@@ -71,7 +71,7 @@ require_once('includes/helper.php');
           </select>
         </div>
         <div class="form-group">
-          How many IATs have you previously performed?
+          How many IATs have you previously taken?
           <select name="numberIATs" class="form-control">
             <option selected disabled></option>
             <option value="0">0</option>

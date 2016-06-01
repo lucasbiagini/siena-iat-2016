@@ -16,33 +16,33 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   -- I think we are missing a field for education level
 
   PRIMARY KEY (`subject_id`)
-) ENGINE=MyISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS `iats` (
-  `iat_id`            INT(11) NOT NULL AUTO_INCREMENT,
-  `subject_id`        INT(11) DEFAULT NULL,
+  `iat_id`            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `subject_id`        BIGINT UNSIGNED NOT NULL,
   `reg_date`          TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `score`             DOUBLE DEFAULT NULL,
-  `cheat_type`        INT(11) NOT NULL DEFAULT '0',
+  `cheat_type`        TINYINT NOT NULL,
 
   PRIMARY KEY (`iat_id`),
   FOREIGN KEY (`subject_id`)
     REFERENCES subjects(`subject_id`)
     ON DELETE CASCADE
 
-) ENGINE=MyISAM AUTO_INCREMENT=15; -- What is this auto_i for?
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS `trials` (
-  `iat_id`        INT(11) NOT NULL,
-  `trial_number`  INT(11) DEFAULT NULL,
-  `response_time` DOUBLE DEFAULT NULL,
-  `item`          VARCHAR(45) DEFAULT NULL,
-  `category`      VARCHAR(45) DEFAULT NULL,
-  `error`         INT(11) DEFAULT NULL,
-  `block`         INT(11) DEFAULT NULL,
+  `iat_id`        BIGINT UNSIGNED NOT NULL,
+  `trial_number`  BIGINT UNSIGNED NOT NULL,
+  `response_time` DOUBLE NOT NULL,
+  `item`          VARCHAR(45) NOT NULL,
+  `category`      VARCHAR(45) NOT NULL,
+  `error`         TINYINT UNSIGNED NOT NULL,
+  `block`         TINYINT UNSIGNED NOT NULL,
 
-  PRIMARY KEY (`iat_id`,`trial_number`),
+  PRIMARY KEY (`iat_id`,`block`,`trial_number`),
   FOREIGN KEY (`iat_id`)
     REFERENCES iats(`iat_id`)
     ON DELETE CASCADE
-) ENGINE=MyISAM;
+) ENGINE=INNODB;

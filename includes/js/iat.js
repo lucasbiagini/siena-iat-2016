@@ -12,8 +12,9 @@ var attributes;
 var curBlock;
 var curTrial;
 var currentState;
-var dataSent = false;
 
+var dataSent = false;
+var cheatType;
 var isMobile = false;
 
 function shuffle(array) {
@@ -37,13 +38,6 @@ function shuffle(array) {
 
 function makeSpan(colorNumber, value) {
   return "<span class='color"+ colorNumber +"'>" + value + "</span>";
-}
-
-function sendData(jsonMatrix) {
-  $.post( "includes/ajax/iat.php", {"matrix" : jsonMatrix}, function(result) {
-      $("#results").html(result);
-      //$('#proceedButton').show();
-  });
 }
 
 function newState() {
@@ -158,6 +152,13 @@ function getSideLabels() {
       break;        
   }
   return labels;
+}
+
+function sendData(jsonMatrix) {
+  $.post( "includes/ajax/iat.php", {"cheatType": cheatType, "matrix" : jsonMatrix}, function(result) {
+      $("#results").html(result);
+      $('#proceedButton').show();
+  });
 }
 
 function endIAT(matrix) {
@@ -287,15 +288,15 @@ function onKeyDown(keyCode, wordStack, dataMatrix) {
     setLabels(trialLengths[curBlock], sideLabels)
   } else {
     endIAT(dataMatrix);
-    // Temporary for DEBUGGING
-    $('#proceedButton').show();
   }
 
 }
 
-function iat (argConcepts, argAttributes, argWordArrs, cheatType, argMobile) {
+function iat (argConcepts, argAttributes, argWordArrs, argCheatType, argMobile) {
   
+  cheatType = argCheatType;
   isMobile = argMobile;
+
 
   // Initialization of global variables
   curBlock = 0;

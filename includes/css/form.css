@@ -1,3 +1,7 @@
+.form-control {
+  width: inherit;
+}
+
 ul.formlist{
 	padding: 0;
 }
