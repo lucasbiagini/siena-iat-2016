@@ -9,6 +9,7 @@
   $dataKeys = array('gender', 'age', 'ethnicity', 'numberIATs', 'countries',
       'field', 'background');
 
+  // The sanitization is probably not necessary with prepared statements
   foreach($dataKeys as $key) {
     if (isset($_POST[$key])) {
       $value = $_POST[$key];
@@ -22,25 +23,15 @@
     }
   }
 
-  //insert the data of the survey into the database
-  // The person ID should be auto_incremented by the database
-  $query = "INSERT INTO survey (gender,age,ethnicity,numberIATs,
-      country,field,background) VALUES('".$data['gender']."','".$data['age']."','"
-      .$data['ethnicity']."','".$data['numberIATs']."','".$data['countries']."','"
-      .$data['field']."','".$data['background']."')";
-  $insert_row = $mysqli->query($query);
-
-  if($insert_row){
-    $_SESSION['idPerson'] = $mysqli->insert_id;
-      $response_array['status'] = true; 
+  $result = insertSurvey($mysqli, $data);
+  if ($result == -1) {
+    $response_array['status'] = false;  
   } else {
-      $response_array['status'] = false;  
+    $_SESSION['idPerson'] = $result;
+    $response_array['status'] = true; 
   }
 
   $mysqli->close();
-
-  // Not sure why this is here
   echo json_encode($response_array);
-
   exit;
 ?>

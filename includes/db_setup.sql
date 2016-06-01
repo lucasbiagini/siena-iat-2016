@@ -3,37 +3,37 @@ CREATE DATABASE IF NOT EXISTS sienasel_iat
 USE sienasel_iat;
 
 -- Might want to add drops here
-CREATE TABLE IF NOT EXISTS `survey` (
-  `idperson`    BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `subjects` (
+  `subject_id`  BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `gender`      VARCHAR(6) DEFAULT NULL,
   `age`         TINYINT UNSIGNED DEFAULT NULL,
   `ethnicity`   VARCHAR(45) DEFAULT NULL,
-  `numberiats`  TINYINT UNSIGNED DEFAULT NULL,
+  `number_iats` TINYINT UNSIGNED DEFAULT NULL,
   `country`     VARCHAR(3) DEFAULT NULL,
   `field`       VARCHAR(45) DEFAULT NULL,
-  `background`  VARCHAR(45) DEFAULT NULL,
+  `background`  TINYINT UNSIGNED DEFAULT NULL,
   `reg_date`    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  -- I think we are missing a field for education level
 
-  PRIMARY KEY (`idperson`)
+  PRIMARY KEY (`subject_id`)
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `iat` (
-  `idiat`             INT(11) NOT NULL AUTO_INCREMENT,
-  `idperson`          INT(11) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `iats` (
+  `iat_id`            INT(11) NOT NULL AUTO_INCREMENT,
+  `subject_id`        INT(11) DEFAULT NULL,
   `reg_date`          TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `score`             DOUBLE DEFAULT NULL,
-  `categories_order`  VARCHAR(100) DEFAULT NULL,
-  `cheat_type`             INT(11) NOT NULL DEFAULT '0',
+  `cheat_type`        INT(11) NOT NULL DEFAULT '0',
 
-  PRIMARY KEY (`idiat`),
-  FOREIGN KEY (`idperson`)
-    REFERENCES survey(`idperson`)
+  PRIMARY KEY (`iat_id`),
+  FOREIGN KEY (`subject_id`)
+    REFERENCES subjects(`subject_id`)
     ON DELETE CASCADE
 
 ) ENGINE=MyISAM AUTO_INCREMENT=15; -- What is this auto_i for?
 
 CREATE TABLE IF NOT EXISTS `trials` (
-  `idiat`         INT(11) NOT NULL,
+  `iat_id`        INT(11) NOT NULL,
   `trial_number`  INT(11) DEFAULT NULL,
   `response_time` DOUBLE DEFAULT NULL,
   `item`          VARCHAR(45) DEFAULT NULL,
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `trials` (
   `error`         INT(11) DEFAULT NULL,
   `block`         INT(11) DEFAULT NULL,
 
-  PRIMARY KEY (`idiat`,`trial_seq`), -- Primary key should be idiat, block, trial_something
-  FOREIGN KEY (`idiat`)
-    REFERENCES iat(`idiat`)
+  PRIMARY KEY (`iat_id`,`trial_number`),
+  FOREIGN KEY (`iat_id`)
+    REFERENCES iats(`iat_id`)
     ON DELETE CASCADE
 ) ENGINE=MyISAM;

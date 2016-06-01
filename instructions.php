@@ -59,25 +59,11 @@ require_once('includes/helper.php');
 				<li>For best results, avoid distractions and stay focused.</li>
 			</ul>
 			
-			<button type="submit" class="btn btn-block" id="cont"> I am ready to begin</button>
+      <form action="iat.php">
+        <button type="submit" class="btn btn-block" id="cont"> I am ready to begin</button>
+      </form>
 		</div>
 		</div>
-		<script>
-			$("#cont").click(function() {
-				var url = "includes/ajax/instructions.php"; 
-			    $.ajax({
-		           type: "POST",
-		           url: url,
-		           success: function(data) {
-					    if (data == 'success') {
-							window.location.href = 'iat.php';
-					    }else if(data == 'error'){
-					        //$("#error").html("ID not found, please try again.");
-					    }
-					},
-		        });				
-			});
-		</script>
 	</body>
 </html>
 
