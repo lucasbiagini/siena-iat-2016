@@ -4,15 +4,17 @@ const SPACE_KEY = 32
 
 // The array index corresponds to the block number (there is no Block 0)
 const trialLengths = [-1, 20, 20, 20, 40, 40, 20, 40]
-//const trialLengths = [-1, 5, 5, 5, 10, 10, 5, 10]
+//const trialLengths = [-1, 1, 1, 1, 2, 2, 1, 2]
 
 var wordArrs;
 var concepts;
 var attributes;
-var curBlock = 0;
+var curBlock;
 var curTrial;
 var currentState;
 var dataSent = false;
+
+var isMobile = false;
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
@@ -37,9 +39,10 @@ function makeSpan(colorNumber, value) {
   return "<span class='color"+ colorNumber +"'>" + value + "</span>";
 }
 
-function sendData(jsonMatrix, categories_order) {
-  $.post( "ajax/iat.php", {"matrix" : jsonMatrix, "type": 1, "categories_order": categories_order}, function(result) {
+function sendData(jsonMatrix) {
+  $.post( "ajax/iat.php", {"matrix" : jsonMatrix}, function(result) {
       $("#results").html(result);
+      //$('#proceedButton').show();
   });
 }
 
@@ -157,7 +160,7 @@ function getSideLabels() {
   return labels;
 }
 
-function endIAT(matrix, categories_order) {
+function endIAT(matrix) {
   $("#start").hide();
   $("#console").removeClass();
   $("#console").html("You have completed the IAT");
@@ -166,11 +169,17 @@ function endIAT(matrix, categories_order) {
   $("#right").html("");
   jsonMatrix = JSON.stringify(matrix);
   console.log(matrix)
+  //$('body').html(matrix);
   
   if (!dataSent) {
-    sendData(jsonMatrix, categories_order)
+    sendData(jsonMatrix)
     dataSent = true;
   }
+}
+
+// To be used to handle when the subject has completed everything
+function endSession() {
+  
 }
 
 function checkStacks(wordStack) {
@@ -209,12 +218,12 @@ function nextBlock() {
   $("#start").show();
 }
 
-function isCorrect(e) {
-return (e.which == E_KEY && currentState == 'LEFT')
-  || (e.which == I_KEY && currentState == 'RIGHT')
+function isCorrect(k) {
+return (k == E_KEY && currentState == 'LEFT')
+  || (k == I_KEY && currentState == 'RIGHT')
 }
 
-function onKeyDown(e, wordStack, dataMatrix, categories_order) {
+function onKeyDown(keyCode, wordStack, dataMatrix) {
   if (currentState == 'DONE')
     return;
 
@@ -223,7 +232,7 @@ function onKeyDown(e, wordStack, dataMatrix, categories_order) {
     currentState = 'DONE';
 
   // This if block is run at the beginning of each IAT block
-  if (e.which == SPACE_KEY && currentState == "NEW_BLOCK") {
+  if (keyCode == SPACE_KEY && currentState == "NEW_BLOCK") {
     $("#start").hide();
     wordStack['LEFT']  = shuffle(blockWords['LEFT'].slice());
     wordStack['RIGHT'] = shuffle(blockWords['RIGHT'].slice());
@@ -235,16 +244,16 @@ function onKeyDown(e, wordStack, dataMatrix, categories_order) {
     $("#console").html(item);
     dataMatrix[curBlock-1][0][curTrial] = item;
 
-  } else if ((e.which == E_KEY || e.which == I_KEY) && (currentState == "LEFT" || currentState == "RIGHT")) {
+  } else if ((keyCode == E_KEY || keyCode == I_KEY) && (currentState == "LEFT" || currentState == "RIGHT")) {
     var seconds = new Date().getTime()/1000;
     if (typeof dataMatrix[curBlock-1][1][curTrial] === 'undefined') {
       dataMatrix[curBlock-1][1][curTrial] = seconds - start;
-      console.log("Setting: " + dataMatrix[curBlock-1][1][curTrial])
+      //console.log("Setting: " + dataMatrix[curBlock-1][1][curTrial])
     }
     start = seconds;
 
     // If the correct key is pressed
-    if (isCorrect(e)) {
+    if (isCorrect(keyCode)) {
       // An entry of 0 in dataMatrix[?][2][?] represents a correct answer
       if (typeof dataMatrix[curBlock-1][2][curTrial] === 'undefined') {
         dataMatrix[curBlock-1][2][curTrial] = 0;
@@ -277,18 +286,25 @@ function onKeyDown(e, wordStack, dataMatrix, categories_order) {
   if (currentState != "DONE") {
     setLabels(trialLengths[curBlock], sideLabels)
   } else {
-    endIAT(dataMatrix, categories_order);
+    endIAT(dataMatrix);
+    // Temporary for DEBUGGING
+    $('#proceedButton').show();
   }
 
 }
 
-function iat (argConcepts, argAttributes, argWordArrs) {
+function iat (argConcepts, argAttributes, argWordArrs, cheatType, argMobile) {
   
+  isMobile = argMobile;
+
+  // Initialization of global variables
+  curBlock = 0;
+  //currentState = '';
+  dataSent = false;
   concepts = argConcepts;
   attributes = argAttributes;
   wordArrs = argWordArrs;
-  var categories_order = concepts[1] + ", " + concepts[2]
-    + ", " + attributes[1] + ", " + attributes[2];
+
   // The shape of the matrix is (block number,
   // [word shown, respone time, correct, word's con/attr], trial number]
   var dataMatrix = [ [ [],[],[],[] ] , [ [],[],[],[] ] , [ [],[],[],[] ]
@@ -305,8 +321,27 @@ function iat (argConcepts, argAttributes, argWordArrs) {
   var wordStack = {}
   var blockWords = {}
 
-  $(document).keydown(function(e) {
-    onKeyDown(e, wordStack, dataMatrix, categories_order);
-  });
+  if (isMobile) {
+    $('#leftTouchPanel').on('mousedown', function(e) {
+      if (currentState == 'LEFT' || currentState == 'RIGHT') {
+        onKeyDown(E_KEY, wordStack, dataMatrix);
+      } else {
+        onKeyDown(SPACE_KEY, wordStack, dataMatrix);
+      }
+    });
+
+    $('#rightTouchPanel').on('mousedown', function(e) {
+      if (currentState == 'LEFT' || currentState == 'RIGHT') {
+        onKeyDown(I_KEY, wordStack, dataMatrix);
+      } else {
+        onKeyDown(SPACE_KEY, wordStack, dataMatrix);
+      }
+    });
+
+  } else {
+    $(document).keydown(function(e) {
+      onKeyDown(e.which, wordStack, dataMatrix);
+    });
+  }
 } 
 

@@ -1,6 +1,13 @@
 body {
-  padding-top: 70px;
+  padding-top: 20px;
   padding-bottom: 30px;
+	font-family : Tahoma;
+	background-color : black;
+	color : white;
+	text-align : center;
+	font-size : 20pt;
+	margin :  5% 5% 0% 5%; 
+  /*height: 100%*/
 }
 
 .theme-dropdown .dropdown-menu {
@@ -15,4 +22,53 @@ body {
 
 .spaced li {
 	margin: 6px 0;	
+}
+
+.btn {
+  color: black;
+}
+
+#console{
+	font-size : 2em;
+}
+
+#associate{
+	width : 100%;
+	clear : both;
+	margin-top :  5%;
+}
+
+#left {
+	float : left;
+}
+
+#right {
+	float : right;
+}
+
+.color1 {
+	color : #FFFF00;
+}
+
+.color2 {
+	color : #00FF00;
+}
+
+#leftTouchPanel {
+  /*background-color: rgba(0,0,255,.5);*/
+  float: left;
+  left: 0px;
+}
+
+#rightTouchPanel{ 
+  float: right;
+  right: 0px;
+  /*background-color: rgba(255,0,0,.5);*/
+}
+
+.touchPanel {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
 }
