@@ -1,11 +1,11 @@
 <?php 
-require_once('includes/helper.php');
-session_start(); 
-/* Changed for DEBUGGING
-if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
-	header( 'Location: /');
-}
- */
+  require_once('includes/helper.php');
+  session_start(); 
+  /* Changed for DEBUGGING
+  if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
+    header( 'Location: /');
+  }
+   */
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,13 +18,9 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	<link rel="stylesheet" type="text/css" href="includes/css/theme.css">
 	<script>
 
-    function startCheatIAT() {
-      $('#proceedButton').hide();
-      startIAT($('#cheatType').html());
-    }
-
     function startIAT(cheatType) {
       $('#proceedButton').hide();
+      console.log('Cheat Type: ' + cheatType);
       var concept1   = ["Apps", "Computer", "Algorithm", "Database", "Internet", "Programming", "Software", "Technology"];
       var concept2   = ["Nature", "Life", "Photosynthesis", "Habitat", "Organs", "Plants", "Species", "Protein"];
       var attribute1 = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"];
@@ -41,15 +37,14 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
     }
 	</script>
 </head>
-<body onload="startIAT(0)">
+<body onload="startIAT($('#cheatType').html())">
   <?php
-    $cheatType = rand(1,3);
-    echo "<div id='cheatType' style='display: none;'>$cheatType</div>";
+    echo "<div id='cheatType' style='display: none;'>$_SESSION[cheatType]</div>";
     if (isset($_GET['mobile']))
       echo "<div id='isMobile' style='display: none;'>$_GET[mobile]</div>";
   ?>
-  <div id="leftTouchPanel"  class="touchPanel"></div>
-  <div id="rightTouchPanel" class="touchPanel"></div>
+  <div id="leftTouchPanel"  class="touchPanel" style="display:none"></div>
+  <div id="rightTouchPanel" class="touchPanel" style="display:none"></div>
 
 	<p id="directions"></p>
 	
@@ -62,7 +57,9 @@ if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
 	<p id="error" style="display: none"><img src="media/error.png" width="100" height="100" alt="Incorrect Answer"></p>
 	<div id="results" style="display: none"></div>
 	<p id="start">Press the spacebar to begin.</p>
-  <button id="proceedButton" class="btn" style="display: none" onclick="startCheatIAT()">Proceed</button>
+  <form action="cheat_instructions.php">
+    <button id="proceedButton" type="submit" class="btn" style="display: none">Proceed</button>
+  </form>
 	<div id="return"></div>
 
 

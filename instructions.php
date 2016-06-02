@@ -1,9 +1,10 @@
 <?php 
-session_start(); 
-if (empty($_SESSION['idPerson']	)) {
-	header( 'Location: /');
-require_once('includes/helper.php');
-}
+  session_start(); 
+  if (empty($_SESSION['started']	)) {
+    header( 'Location: /');
+  }
+  require_once('includes/helper.php');
+  $_SESSION['cheatType'] = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">

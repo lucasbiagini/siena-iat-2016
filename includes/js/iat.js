@@ -121,32 +121,32 @@ function getSideLabels() {
   var labels = {}
   switch (curBlock) {
     case 1:
-      labels['LEFT']  = makeSpan(1,concepts[1])
-      labels['RIGHT'] = makeSpan(1,concepts[2])
+      labels['LEFT']  = makeSpan(1,concepts[1]);
+      labels['RIGHT'] = makeSpan(1,concepts[2]);
       break;
     case 2:
-      labels['LEFT']  = makeSpan(2,attributes[1])
-      labels['RIGHT'] = makeSpan(2,attributes[2])
+      labels['LEFT']  = makeSpan(2,attributes[1]);
+      labels['RIGHT'] = makeSpan(2,attributes[2]);
       break;
     case 3:
-      labels['LEFT']  = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[1])
-      labels['RIGHT'] = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[2])
+      labels['LEFT']  = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[1]);
+      labels['RIGHT'] = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[2]);
       break;
     case 4:
-      labels['LEFT']  = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[1])
-      labels['RIGHT'] = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[2])
+      labels['LEFT']  = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[1]);
+      labels['RIGHT'] = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[2]);
       break;
     case 5:
-      labels['LEFT']  = makeSpan(1,concepts[2])
-      labels['RIGHT'] = makeSpan(1,concepts[1])
+      labels['LEFT']  = makeSpan(1,concepts[2]);
+      labels['RIGHT'] = makeSpan(1,concepts[1]);
       break;
     case 6:
-      labels['LEFT']  = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[1])
-      labels['RIGHT'] = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[2])
+      labels['LEFT']  = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[1]);
+      labels['RIGHT'] = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[2]);
       break;
     case 7:
-      labels['LEFT']  = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[1])
-      labels['RIGHT'] = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[2])
+      labels['LEFT']  = makeSpan(1,concepts[2]) + " or " + makeSpan(2,attributes[1]);
+      labels['RIGHT'] = makeSpan(1,concepts[1]) + " or " + makeSpan(2,attributes[2]);
       break;
     default:
       break;        
@@ -157,14 +157,18 @@ function getSideLabels() {
 function sendData(jsonMatrix) {
   $.post( "includes/ajax/iat.php", {"cheatType": cheatType, "matrix" : jsonMatrix}, function(result) {
       $("#results").html(result);
-      $('#proceedButton').show();
+      if (cheatType == 0) 
+        $('#proceedButton').show();
   });
 }
 
 function endIAT(matrix) {
   $("#start").hide();
   $("#console").removeClass();
-  $("#console").html("You have completed the IAT");
+  if (cheatType == 0) 
+    $("#console").html("You have completed the first part of the study.");
+  else 
+    $("#console").html("You have completed the study. You may now close the window.");
   $("#directions").html("");
   $("#left").html("");
   $("#right").html("");
@@ -323,6 +327,7 @@ function iat (argConcepts, argAttributes, argWordArrs, argCheatType, argMobile) 
   var blockWords = {}
 
   if (isMobile) {
+    $('#leftTouchPanel, #rightTouchPanel').show();
     $('#leftTouchPanel').on('mousedown', function(e) {
       if (currentState == 'LEFT' || currentState == 'RIGHT') {
         onKeyDown(E_KEY, wordStack, dataMatrix);
