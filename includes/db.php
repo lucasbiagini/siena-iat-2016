@@ -66,7 +66,7 @@ function insertIat($mysqli, $subjectId, $cheatType){
 
 function insertTrials($mysqli, $iatId, $data) {
   // The shape of the matrix is (block number,
-  // [word shown, respone time, correct, word's con/attr], trial number]
+  // [word shown, respone time, correct, word's con/attr], trial number)
 
   $stmt = $mysqli->prepare("INSERT INTO trials
       (iat_id, trial_number, response_time, item, category, error, block) 
@@ -92,4 +92,19 @@ function insertTrials($mysqli, $iatId, $data) {
   }
   return 0;
 }
+
+function getScore($mysqli, $iatId) {
+  $query = sqlFinalScore($iatId, array(3,6), array(4,7), false);  
+  $result = $mysqli->query($query);
+  if ($result) {
+    return $result->fetch_row()[0]; 
+  } else {
+    return null;
+  }
+}
+
+function insertScore($mysqli, $iatId, $score) {
+
+}
+
 ?>

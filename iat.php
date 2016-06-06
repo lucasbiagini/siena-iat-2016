@@ -58,6 +58,7 @@
 	<div id="results" style="display: none"></div>
 	<p id="start">Press the spacebar to begin.</p>
   <form action="cheat_instructions.php">
+    <br>
     <button id="proceedButton" type="submit" class="btn" style="display: none">Proceed</button>
   </form>
 	<div id="return"></div>
