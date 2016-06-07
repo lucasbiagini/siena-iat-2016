@@ -23,7 +23,9 @@ $score = getScore($mysqli, $iatId);
 if ($score == null) {
   echo "";
 } else {
+  // Maybe the rounding should be done client-side
   echo round($score, 2);
+  insertScore($mysqli, $iatId, $score);
 }
 
 $mysqli->close();

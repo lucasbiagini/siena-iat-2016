@@ -104,7 +104,18 @@ function getScore($mysqli, $iatId) {
 }
 
 function insertScore($mysqli, $iatId, $score) {
-
+  $stmt = $mysqli->prepare(
+      "UPDATE iats SET score = ? WHERE iat_id = ?");
+  if ($stmt == false) {
+    error_log('The statement was not able to be prepared.');
+    error_log($mysqli->error);
+    return -1;
+  }
+  $stmt->bind_param('di', $score, $iatId);
+  $stmt->execute();
 }
+
+// Future query
+// DELETE FROM subjects WHERE NOT EXISTS (SELECT * FROM iats WHERE subjects.subject_id = iats.subject_id);
 
 ?>

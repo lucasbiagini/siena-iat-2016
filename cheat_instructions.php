@@ -26,7 +26,7 @@
       ( ͡° ͜ʖ ͡°)
 		</div>
     <form action="iat.php">
-      <button type="submit" class="btn btn-block" id="cont">Continue to survey</button>
+      <button type="submit" class="btn btn-block" id="cont">Continue to IAT</button>
     </form>
 		</div>
 	</body>

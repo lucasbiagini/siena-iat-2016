@@ -61,7 +61,7 @@
 			</ul>
 			
       <form action="iat.php">
-        <button type="submit" class="btn btn-block" id="cont"> I am ready to begin</button>
+        <button type="submit" class="btn btn-block" id="cont">Continue to IAT</button>
       </form>
 		</div>
 		</div>
