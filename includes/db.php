@@ -2,15 +2,15 @@
 require_once('helper.php');
 
 function getMYSQLI() {
-  // The file path needs to be fixed here
-  $credJSON = file_get_contents(get_include_path() . "credentials.json");
+  error_log("HOME = " . get_path('home'));
+  $credJSON = file_get_contents(get_path("home"). ".iat/"  . "credentials.json");
   $vals = json_decode($credJSON, true);
   $mysqli = new mysqli($vals['db_host'], $vals['db_user'], $vals['db_pass'], $vals['db_name']);
 
   if ($mysqli->connect_errno) {
 
     // Using an absolute path can cause problems from server to server
-    $script_path = $_SERVER['DOCUMENT_ROOT'] . "/" . "includes/db_setup.sql";
+    $script_path = get_path('root') . "includes/db_setup.sql";
     $command = "mysql -u{$vals['db_user']} -p{$vals['db_pass']} "
         . "-h {$vals['db_host']} < {$script_path}";
 
@@ -97,7 +97,8 @@ function getScore($mysqli, $iatId) {
   $query = sqlFinalScore($iatId, array(3,6), array(4,7), false);  
   $result = $mysqli->query($query);
   if ($result) {
-    return $result->fetch_row()[0]; 
+    $array = $result->fetch_row();
+    return $array[0]; 
   } else {
     return null;
   }
