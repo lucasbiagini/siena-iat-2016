@@ -4,7 +4,12 @@ require_once('../helper.php');
 require_once ("db.php");
 require_once ("math_helper.php");
 
-$data = json_decode($_POST['matrix']);
+
+if (get_magic_quotes_gpc())
+  $json = stripslashes($_POST['matrix']);
+else
+  $json = $_POST['matrix'];
+$data = json_decode($json);
 $cheatType = $_POST['cheatType'];
 $subjectId = $_SESSION['subjectId'];
 
