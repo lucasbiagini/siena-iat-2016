@@ -27,12 +27,14 @@
       var attribute2 = ["Mary", "Patricia", "Jennifer", "Elizabeth", "Linda", "Barbara", "Susan", "Margaret"];
     
       var isMobile = ($('#isMobile').html() === '1');
+      var hasImages = ($('#hasImages').html() === '1');
       //$(document).ready(function(){
         iat({1:"Computer Science", 2:"Biology"},
             {1:"Male", 2:"Female"},
             {concept1:concept1, concept2:concept2, attribute1:attribute1, attribute2:attribute2},
             cheatType,
-            isMobile);		
+            isMobile,
+            hasImages);		
       //});	
     }
 	</script>
@@ -42,6 +44,8 @@
     echo "<div id='cheatType' style='display: none;'>$_SESSION[cheatType]</div>";
     if (isset($_GET['mobile']))
       echo "<div id='isMobile' style='display: none;'>$_GET[mobile]</div>";
+    if (isset($_GET['images']))
+      echo "<div id='hasImages' style='display: none;'>$_GET[images]</div>"; 
   ?>
   <div id="leftTouchPanel"  class="touchPanel" style="display:none"></div>
   <div id="rightTouchPanel" class="touchPanel" style="display:none"></div>
