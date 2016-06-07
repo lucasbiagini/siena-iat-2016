@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   `ethnicity`   VARCHAR(45) DEFAULT NULL,
   `number_iats` TINYINT UNSIGNED DEFAULT NULL,
   `country`     VARCHAR(3) DEFAULT NULL,
-  `field`       VARCHAR(45) DEFAULT NULL,
+  `education`   TINYINT UNSIGNED DEFAULT NULL,
+  `field`       TINYINT UNSIGNED DEFAULT NULL,
   `background`  TINYINT UNSIGNED DEFAULT NULL,
   `reg_date`    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  -- I think we are missing a field for education level
 
   PRIMARY KEY (`subject_id`)
 ) ENGINE=INNODB;

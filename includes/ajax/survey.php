@@ -6,18 +6,12 @@
   @header('Content-type: application/json');
 
   $data = array();
-  $dataKeys = array('gender', 'age', 'ethnicity', 'numberIATs', 'countries',
-      'field', 'background');
+  $dataKeys = array('gender', 'age', 'ethnicity', 'number_iats', 'country',
+      'education', 'field', 'background');
 
-  // The sanitization is probably not necessary with prepared statements
   foreach($dataKeys as $key) {
     if (isset($_POST[$key])) {
-      $value = $_POST[$key];
-      $value = trim($value);
-      //$value = striptags($value);
-      $value = $mysqli->real_escape_string($value); // use inplace of addslashes
-      $value = htmlentities($value);
-      $data[$key] = $value;
+      $data[$key] = $_POST[$key];
     } else {
       $data[$key] = null;
     }
