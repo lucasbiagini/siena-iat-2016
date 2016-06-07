@@ -16,6 +16,7 @@ var currentState;
 var dataSent = false;
 var cheatType;
 var isMobile = false;
+var hasImages = false;
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
@@ -313,10 +314,11 @@ function onKeyDown(keyCode, wordStack, dataMatrix) {
 
 }
 
-function iat (argConcepts, argAttributes, argWordArrs, argCheatType, argMobile) {
+function iat (argConcepts, argAttributes, argWordArrs, argCheatType, argMobile, argImages) {
   
   cheatType = argCheatType;
   isMobile = argMobile;
+  hasImages = argImages;
 
 
   // Initialization of global variables
@@ -365,6 +367,15 @@ function iat (argConcepts, argAttributes, argWordArrs, argCheatType, argMobile) 
     $(document).keydown(function(e) {
       onKeyDown(e.which, wordStack, dataMatrix);
     });
+  }
+
+  if (hasImages) {
+    for (var key in wordArrs) {
+      if (!wordArrs.hasOwnProperty(key)) { continue; }
+      for (var i = 0; i < wordArrs[key].length; i++) {
+       wordArrs[key][i] = '<img width="400px" src="media/'+ key +'/' + wordArrs[key][i] + '.jpg" alt="' + wordArrs[key][i] + '">';
+      }
+    }
   }
 } 
 
