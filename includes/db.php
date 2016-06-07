@@ -1,8 +1,7 @@
 <?php 
-require_once('helper.php');
+require_once(dirname(__FILE__) . '/' . 'helper.php');
 
 function getMYSQLI() {
-  error_log("HOME = " . get_path('home'));
   $credJSON = file_get_contents(get_path("home"). ".iat/"  . "credentials.json");
   $vals = json_decode($credJSON, true);
   $mysqli = new mysqli($vals['db_host'], $vals['db_user'], $vals['db_pass'], $vals['db_name']);

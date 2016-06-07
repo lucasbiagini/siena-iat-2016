@@ -29,15 +29,4 @@ if ($score == null) {
 }
 
 $mysqli->close();
-exit;
-
-
-  //update the score in the iat table
-  if (!$mysqli->query("UPDATE iat SET score_original = " . $finalScore
-    . ", score = " . $finalScoreUpdated . ", iat_type = '" . $iatType
-    . "', categories_order = '" . $categories_order . "' where idiat = " . $idIat . "")) {
-      //echo "UPDATE failed: (" . $mysqli->errno . ") " . $mysqli->error;
-  }
-
-exit;
 ?>
