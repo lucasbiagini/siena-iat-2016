@@ -1,7 +1,9 @@
 <?php 
   session_start(); 
-  if (empty($_SESSION['started']	)) {
+  if (empty($_SESSION['started'])) {
     header( 'Location: /');
+  } else if (!isset($_SESSION['subjectId'])) {
+    header('Location: /survey.php');
   }
   require_once('includes/helper.php');
   $_SESSION['cheatType'] = 0;

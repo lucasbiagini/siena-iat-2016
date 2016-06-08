@@ -1,11 +1,21 @@
 <?php 
   require_once('includes/helper.php');
   session_start(); 
-  /* Changed for DEBUGGING
-  if (empty($_SESSION['idIat']) || empty($_SESSION['idPerson']	)) {
-    header( 'Location: /');
+  if (!isset($_SESSION['started'])) {
+    header('Location: /');
+  } else if (!isset($_SESSION['subjectId'])) {
+    header('Location: /survey.php');
   }
-   */
+
+  if (isset($_SESSION['iatTaken']) && $_SESSION['cheatType'] == 0) {
+    header('Location: /cheat_instructions.php');
+  } else if ($_SESSION['cheatType'] == 0) {
+    $_SESSION['iatTaken'] = true;
+  } else if (isset($_SESSION['cheatIatTaken'])) {
+    header('Location: /exit.php');
+  } else {
+    $_SESSION['cheatIatTaken'] = true;
+  }
 ?>
 <!DOCTYPE html>
 <html>

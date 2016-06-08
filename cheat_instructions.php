@@ -1,5 +1,10 @@
 <?php
   session_start();
+  if (!isset($_SESSION['started'])) { 
+    header('Location: /');
+  } else if (!isset($_SESSION['subjectId'])) {
+    header('Location: /survey.php');
+  }
   require_once('includes/helper.php');
   $_SESSION['cheatType'] = rand(1,3);
 ?>

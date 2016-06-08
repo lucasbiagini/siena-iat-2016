@@ -1,5 +1,9 @@
-<?php session_start();
-require_once('includes/helper.php');
+<?php
+  session_start();
+  if (!isset($_SESSION['started'])) {
+    header('Location: /');
+  }
+  require_once('includes/helper.php');
 ?>
 <!DOCTYPE html>  <!-- ADD OCCUPATION TO THE Survey -->
 <html>

@@ -1,9 +1,8 @@
 <?php
-  if (session_id() != '')
-    session_destroy();
   session_start();
-  require_once('includes/helper.php');
-  $_SESSION['started'] = true;
+  if (!isset($_SESSION['started'])) {
+    header('Location: /');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,13 +19,8 @@
 	<body>
 		<div class="container">
 		<div id="directions">
-			<h2>You have opted to complete the Computer Science/Biology IAT</h2>
-			<br>
-			<p>Enter a description here. Please do not refresh pages or use the back button for any part of this study.</p>
+			<h2>Thank you for your participation. You may now close this window.</h2>
 		</div>
-    <form action="survey.php">
-      <button type="submit" class="btn btn-block" id="cont">Continue to survey</button>
-    </form>
 		</div>
 	</body>
 </html>
