@@ -1,7 +1,9 @@
 <?php 
   session_start(); 
-  if (empty($_SESSION['started']	)) {
+  if (empty($_SESSION['started'])) {
     header( 'Location: /');
+  } else if (!isset($_SESSION['subjectId'])) {
+    header('Location: /survey.php');
   }
   require_once('includes/helper.php');
   $_SESSION['cheatType'] = 0;
@@ -61,7 +63,7 @@
 			</ul>
 			
       <form action="iat.php">
-        <button type="submit" class="btn btn-block" id="cont"> I am ready to begin</button>
+        <button type="submit" class="btn btn-block" id="cont">Continue to IAT</button>
       </form>
 		</div>
 		</div>

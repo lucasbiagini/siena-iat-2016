@@ -1,16 +1,15 @@
 <?php 
-require_once('helper.php');
+require_once(dirname(__FILE__) . '/' . 'helper.php');
 
 function getMYSQLI() {
-  // The file path needs to be fixed here
-  $credJSON = file_get_contents(get_include_path() . "credentials.json");
+  $credJSON = file_get_contents(get_path("home"). ".iat/"  . "credentials.json");
   $vals = json_decode($credJSON, true);
   $mysqli = new mysqli($vals['db_host'], $vals['db_user'], $vals['db_pass'], $vals['db_name']);
 
   if ($mysqli->connect_errno) {
 
     // Using an absolute path can cause problems from server to server
-    $script_path = $_SERVER['DOCUMENT_ROOT'] . "/" . "includes/db_setup.sql";
+    $script_path = get_path('root') . "includes/db_setup.sql";
     $command = "mysql -u{$vals['db_user']} -p{$vals['db_pass']} "
         . "-h {$vals['db_host']} < {$script_path}";
 
@@ -31,18 +30,16 @@ $mysqli = getMYSQLI();
  * Returns the insert_id as the subject_id if successful
  */
 function insertSurvey($mysqli, $data) {
-  //insert the data of the survey into the database
-  // The person ID should be auto_incremented by the database
   $stmt = $mysqli->prepare(
-      "INSERT INTO subjects (gender, age, ethnicity, number_iats, country, field, background)
-      VALUES(?,?,?,?,?,?,?)");
+      "INSERT INTO subjects (gender, age, ethnicity, number_iats, country, education, field, background)
+      VALUES(?,?,?,?,?,?,?,?)");
   if ($stmt == false) {
     error_log('The statement was not able to be prepared.');
     error_log($mysqli->error);
     return -1;
   }
-  $stmt->bind_param('sisissi', $data['gender'], $data['age'], $data['ethnicity'],
-      $data['number_iats'], $data['country'], $data['field'], $data['background']);
+  $stmt->bind_param('sisisiii', $data['gender'], $data['age'], $data['ethnicity'],
+      $data['number_iats'], $data['country'], $data['education'], $data['field'], $data['background']);
   $stmt->execute();
   return $mysqli->insert_id;
 }
@@ -97,14 +94,26 @@ function getScore($mysqli, $iatId) {
   $query = sqlFinalScore($iatId, array(3,6), array(4,7), false);  
   $result = $mysqli->query($query);
   if ($result) {
-    return $result->fetch_row()[0]; 
+    $array = $result->fetch_row();
+    return $array[0]; 
   } else {
     return null;
   }
 }
 
 function insertScore($mysqli, $iatId, $score) {
-
+  $stmt = $mysqli->prepare(
+      "UPDATE iats SET score = ? WHERE iat_id = ?");
+  if ($stmt == false) {
+    error_log('The statement was not able to be prepared.');
+    error_log($mysqli->error);
+    return -1;
+  }
+  $stmt->bind_param('di', $score, $iatId);
+  $stmt->execute();
 }
+
+// Future query
+// DELETE FROM subjects WHERE NOT EXISTS (SELECT * FROM iats WHERE subjects.subject_id = iats.subject_id);
 
 ?>

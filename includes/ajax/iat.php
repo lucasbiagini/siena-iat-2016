@@ -4,7 +4,12 @@ require_once('../helper.php');
 require_once ("db.php");
 require_once ("math_helper.php");
 
-$data = json_decode($_POST['matrix']);
+
+if (get_magic_quotes_gpc())
+  $json = stripslashes($_POST['matrix']);
+else
+  $json = $_POST['matrix'];
+$data = json_decode($json);
 $cheatType = $_POST['cheatType'];
 $subjectId = $_SESSION['subjectId'];
 
@@ -23,19 +28,10 @@ $score = getScore($mysqli, $iatId);
 if ($score == null) {
   echo "";
 } else {
+  // Maybe the rounding should be done client-side
   echo round($score, 2);
+  insertScore($mysqli, $iatId, $score);
 }
 
 $mysqli->close();
-exit;
-
-
-  //update the score in the iat table
-  if (!$mysqli->query("UPDATE iat SET score_original = " . $finalScore
-    . ", score = " . $finalScoreUpdated . ", iat_type = '" . $iatType
-    . "', categories_order = '" . $categories_order . "' where idiat = " . $idIat . "")) {
-      //echo "UPDATE failed: (" . $mysqli->errno . ") " . $mysqli->error;
-  }
-
-exit;
 ?>

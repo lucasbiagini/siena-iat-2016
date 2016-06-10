@@ -1,5 +1,9 @@
-<?php session_start();
-require_once('includes/helper.php');
+<?php
+  session_start();
+  if (!isset($_SESSION['started'])) {
+    header('Location: /');
+  }
+  require_once('includes/helper.php');
 ?>
 <!DOCTYPE html>  <!-- ADD OCCUPATION TO THE Survey -->
 <html>
@@ -64,26 +68,25 @@ require_once('includes/helper.php');
             <option value="AI or AN"> American Indian or Alaska Native</option>
             <option value="asian"> Asian </option>
             <option value="black"> Black or African American</option>
-            <option value="other states"> Native Hawaiian or Other Pacific Islander</option>
+            <option value="NH or PI"> Native Hawaiian or Other Pacific Islander</option>
             <option value="white"> White</option>
             <option value="hispanic or latino"> Hispanic or Latino</option>
-            <option value="no answer">No Answer</option>
           </select>
         </div>
         <div class="form-group">
           How many IATs have you previously taken?
-          <select name="numberIATs" class="form-control">
+          <select name="number_iats" class="form-control">
             <option selected disabled></option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
-            <option value="3-5">3-5</option>
-            <option value="6+">6+</option>
+            <option value="3">3-5</option>
+            <option value="6">6+</option>
           </select>
         </div>
         <div class="form-group">
           What country have you spent most of your life in?
-          <select name="countries" class="form-control">
+          <select name="country" class="form-control">
             <option selected disabled></option>
             <option value="USA">United States</option>
             <option value="AFG">Afghanistan</option>

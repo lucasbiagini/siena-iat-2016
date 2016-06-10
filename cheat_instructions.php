@@ -1,5 +1,10 @@
 <?php
   session_start();
+  if (!isset($_SESSION['started'])) { 
+    header('Location: /');
+  } else if (!isset($_SESSION['subjectId'])) {
+    header('Location: /survey.php');
+  }
   require_once('includes/helper.php');
   $_SESSION['cheatType'] = rand(1,3);
 ?>
@@ -26,7 +31,7 @@
       ( ͡° ͜ʖ ͡°)
 		</div>
     <form action="iat.php">
-      <button type="submit" class="btn btn-block" id="cont">Continue to survey</button>
+      <button type="submit" class="btn btn-block" id="cont">Continue to IAT</button>
     </form>
 		</div>
 	</body>
