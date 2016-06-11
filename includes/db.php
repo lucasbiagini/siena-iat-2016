@@ -61,7 +61,7 @@ function insertIat($mysqli, $subjectId, $cheatType){
   return $mysqli->insert_id;
 }
 
-function insertTrials($mysqli, $iatId, $data) {
+function insertTrialsPrepared($mysqli, $iatId, $data) {
   // The shape of the matrix is (block number,
   // [word shown, respone time, correct, word's con/attr], trial number)
 
@@ -87,6 +87,36 @@ function insertTrials($mysqli, $iatId, $data) {
       }
     }
   }
+  return 0;
+}
+
+function insertTrials($mysqli, $iatId, $data) {
+
+  $sqlString = "INSERT INTO trials "
+      . " (iat_id, trial_number, response_time, item, category, error, block)"
+      . " VALUES ";
+
+  $numBlocks = count($data);
+  for ($i = 0; $i < $numBlocks; $i++) {
+    $numTrials = count($data[$i][0]);
+    for ($j = 0; $j < $numTrials; $j++) {
+      // Blocks are 1 indexed in the DB
+      $blockNum = $i + 1;
+      $time = $data[$i][1][$j];
+      $item = $data[$i][0][$j];
+      $cat = $data[$i][3][$j];
+      $err = $data[$i][2][$j];
+      $sqlString .= "($iatId, $j, $time, '$item', '$cat', $err, $blockNum),";
+    }
+  }
+  $sqlString = trim($sqlString, ",");
+  $mysqli->query($sqlString);
+  if ($mysqli->error) {
+    error_log($sqlString);
+    error_log($mysqli->error);
+  }
+  
+
   return 0;
 }
 

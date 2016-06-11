@@ -1,6 +1,8 @@
 <?php
-  if (session_id() != '')
+  session_start();
+  if (session_id() != '') {
     session_destroy();
+  }
   session_start();
   require_once('includes/helper.php');
   $_SESSION['started'] = true;
