@@ -26,6 +26,7 @@
 	<script src="includes/js/iat.js"></script>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" id="bootstrapCSS">
 	<link rel="stylesheet" type="text/css" href="includes/css/theme.css">
+  <link rel="icon" href="/media/favicon.ico?" type="image/x-icon">
 	<script>
 
     function startIAT(cheatType) {

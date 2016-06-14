@@ -14,6 +14,7 @@
     <script src="includes/js/iat.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" id="bootstrapCSS">
     <link rel="stylesheet" type="text/css" href="includes/css/form.css" id="formCSS">
+    <link rel="icon" href="/media/favicon.ico?" type="image/x-icon">
   </head>
   <body>
     <div id="page">

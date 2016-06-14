@@ -3,6 +3,8 @@
   if (session_id() != '') {
     session_destroy();
   }
+  ini_set('session.gc_maxlifetime', 1200);
+  session_set_cookie_params(1200);
   session_start();
   require_once('includes/helper.php');
   $_SESSION['started'] = true;
@@ -17,6 +19,7 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="includes/css/form.css">
+    <link rel="icon" href="/media/favicon.ico?" type="image/x-icon">
 		
 	</head>
 	<body>
