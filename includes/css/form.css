@@ -1,7 +1,12 @@
+#cheatImage {
+  width: 100%;
+  height: auto;
+  margin: auto auto auto auto;
+}
+
 .form-control {
   width: inherit;
 }
-
 ul.formlist{
 	padding: 0;
 }

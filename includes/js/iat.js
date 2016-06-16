@@ -3,8 +3,8 @@ const I_KEY = 73
 const SPACE_KEY = 32
 
 // The array index corresponds to the block number (there is no Block 0)
-//const trialLengths = [-1, 20, 20, 20, 40, 40, 20, 40]
-const trialLengths = [-1, 2, 2, 2, 4, 4, 2, 4]
+const trialLengths = [-1, 20, 20, 20, 40, 40, 20, 40]
+//const trialLengths = [-1, 2, 2, 2, 4, 4, 2, 4]
 
 var wordArrs;
 var concepts;
