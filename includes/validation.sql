@@ -37,3 +37,4 @@ FROM iats
 WHERE iats.cheat_type > 0
 GROUP BY iats.subject_id
 HAVING Count(*) > 1;
+

@@ -53,7 +53,7 @@ function sqlCombinedStdDev($iatId, $block1, $block2) {
   $correctTrials2 = sqlCorrectTrials($iatId, $block2);
   $adjustedTrials2 = sqlAdjustedTrials($iatId, $block2);
   return "(SELECT Stddev_samp(response_time) FROM ($correctTrials1 UNION ALL $adjustedTrials1"
-  . " UNION ALL $correctTrials2 UNION ALL $adjustedTrials2) AS totatl_stddev)";
+  . " UNION ALL $correctTrials2 UNION ALL $adjustedTrials2) AS totat_stddev)";
 }
 
 // Calculates the mean with the errors
