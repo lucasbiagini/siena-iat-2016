@@ -25,7 +25,7 @@
 		<div class="container">
 		<div id="instructions">
 			<h2> Instructions </h2>
-			<p>	In the next task, you will be presented with a set of words to classify into groups. This task requires that you classify items as quickly as you can while making as few mistakes as possible. Going too slow or making too many mistakes will result in an uninterpretable score. This part of the study will take about 5 minutes. The following is a list of category labels and the items that belong to each of those categories. </p>
+			<p>	In the next task, you will be presented with a set of words to classify into groups. This task requires that you classify items as quickly as you can while making as few mistakes as possible. Going too slow or making too many mistakes will result in an uninterpretable score. This part of the study will take about 2-3 minutes. The following is a list of category labels and the items that belong to each of those categories. </p>
 			
 			<table class="table">
 				<thead>
